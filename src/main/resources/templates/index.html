@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>WorkWalk</title>
+</head>
+
+<body style="text-align: center">
+<h3> WorkWalk 첫 시작 페이지입니다 </h3>
+<div sec:authorize="isAnonymous()">
+    <p><a th:href="@{/users/login}">LogIn</a></p>
+</div>
+</body>
+</html>

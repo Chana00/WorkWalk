@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>WorkWalk</title>
+</head>
+
+<body style="text-align: center">
+<h2> 회원가입 페이지 </h2>
+<br/>
+<div>
+<form th:action="@{/users/signup}" th:object="${user}" method="POST">
+    ID : <input type="text" th:field="*{memberId}"> <br>
+    PASSWORD : <input type="password" th:field="*{password}"><br>
+    <hr>유저 정보<hr>
+    이름 : <input type="text" th:field="*{name}"> <br><br>
+    닉네임 : <input type="text" th:field="*{nickname}"> <br><br>
+    주소 : <input type="text" th:field="*{address}"> <br><br>
+    연락처 : <input type="text" th:field="*{phone}"> <br><br>
+    성별 : <input type="text" th:field="*{sex}" > <br><br>
+    생일 : <input type="date" th:field="*{birth}"> <br><br>
+    자격증 : <input type="text" th:field="*{license}"> <br><br>
+    경험 : <input type="text" th:field="*{exp}"> <br>
+    <button type="submit">Join</button>
+
+</form>
+</div>
+    <br>
+<a href="login.html">돌아가기</a>
+</body>
+</html>

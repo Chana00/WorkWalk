@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>WorkWalk</title>
+</head>
+
+<body style="text-align: center">
+<h2> WorkWalk 홈페이지 입니다! </h2>
+<div sec:authorize="isAuthenticated()">
+    <p>Welcome <span sec:authentication="principal.username">User</span></p>
+    <p><a th:href="@{/users/logout}">Logout</a></p>
+
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <h3>You will see this only if you are ADMIN</h3>
+        <p><a th:href="@{/admin/home}">Admin Home</a></p>
+    </div>
+</div>
+
+<div sec:authorize="isAnonymous()">
+    <p>로그인이 필요합니다</p>
+    <p><a th:href="@{/users/login}">LogIn</a></p>
+</div>
+</body>
+</html>
