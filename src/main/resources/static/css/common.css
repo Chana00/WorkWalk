@@ -1,0 +1,16 @@
+/* 공통 모듈 */
+/*
+font-family: 'Do Hyeon', sans-serif;
+font-family: 'Nanum Gothic', sans-serif;
+*/
+
+body {
+
+}
+
+.inner {
+    width: 1100px;
+    margin: 0 auto;
+    position: relative;
+}
+

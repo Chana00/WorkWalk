@@ -39,8 +39,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/home", "/").permitAll()
+                .antMatchers("/").permitAll()
                 .antMatchers("/users/login", "/users/signup").permitAll()
+                .antMatchers("/home").hasRole("USER")
                 .antMatchers("/admin/**").hasRole("ADMIN")  // ADMIN 접근 허용
                 .anyRequest().authenticated()   // 나머지 요청들 종류에 상관없이 권한이 있어야 접근 허용
 

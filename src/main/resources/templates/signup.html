@@ -10,7 +10,18 @@
 <h2> 회원가입 페이지 </h2>
 <br/>
 <div>
-<form th:action="@{/users/signup}" th:object="${user}" method="POST">
+<form class="needs-validation" th:action="@{/users/signup}" th:object="${user}" method="POST">
+    <div class="mb-3">
+        <label for="username">아이디 (username)</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">@</span>
+            </div>
+            <input type="text" class="form-control" id="username" placeholder="Username" required name="user-id">
+            <div class="invalid-feedback" style="width: 100%;">Your username is required.</div>
+        </div>
+    </div>
+
     ID : <input type="text" th:field="*{memberId}"> <br>
     PASSWORD : <input type="password" th:field="*{password}"><br>
     <hr>유저 정보<hr>
