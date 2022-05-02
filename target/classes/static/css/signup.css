@@ -1,0 +1,28 @@
+body {
+    background-color: #FAFAFA;
+}
+
+.inner {
+    padding-top: 50px;
+    padding-left: 100px;
+    padding-right: 100px;
+    font-family: 'Nanum Gothic', sans-serif;
+    width: 1000px;
+    background-color: #F7F7F7;
+
+}
+
+.inner h2 {
+    text-align : center;
+    font-family: 'BM Dohyeon', sans-serif;
+    color : #815854;
+}
+
+.findAddrBtn {
+    background-color: #815854;
+    border : none;
+    border-radius: 5px;
+    font-size: 14px;
+    color: whitesmoke;
+    padding: 5px 10px;
+}

@@ -36,9 +36,16 @@ public class User
     @Column
     private String nickname;
 
-    //주소
+    //도로명주소
     @Column
     private String address;
+
+    //우편번호
+    @Column
+    private String zipcode;
+
+    @Column
+    private String detailAddress;
 
     //연락처
     @Column

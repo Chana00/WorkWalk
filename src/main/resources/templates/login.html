@@ -9,23 +9,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/login.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic:wght@400;700&display=swap"
+          rel="stylesheet">
     <title>WorkWalk</title>
 </head>
 
 <body>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
 
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFF4EC;">
-    <a class="navbar-brand" th:href="@{/home}" style="font-family: 'Do Hyeon', sans-serif; color:  #815854;">
+    <a class="navbar-brand" th:href="@{/}" style="font-family: 'Do Hyeon', sans-serif; color:  #815854;">
         <img src="/img/WolkWalk-logo.png" width="30" height="30" alt="">
         WorkWalk</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -52,26 +60,45 @@
     </div>
 </nav>
 
-<div>
-<h1> 로그인 </h1>
-<form action="login" th:action="@{/users/login}" method="post">
-    <div th:if="${param.error}">
-        <span style="color:#FF0000">ID 혹은 패스워드가 틀렸습니다.</span>
+<section class="signin">
+    <div class="card align-middle" style="width:20rem; border-radius:15px;">
+        <div class="card-title" style="margin-top:30px;">
+            <h2 class="card-title text-center" style="color:#815854;">Login</h2>
+        </div>
+        <div class="card-body">
+            <form action="login" th:action="@{/users/login}" method="post">
+
+
+                <div class="input-group">
+                    <input type="text" id="id-memberId" name="username" class="form-control" placeholder="아이디 입력" >
+                </div>
+
+
+                <div class="input-group">
+                <!--    <label class="text-body" style="margin-right: 10px;">PASSWORD</label> -->
+                    <input type="password" id="id-password" name="password" class="form-control" placeholder="비밀번호 입력">
+                </div>
+
+                <div th:if="${param.error}">
+                    <span style="color:#FF0000">ID 혹은 패스워드가 틀렸습니다.</span>
+                </div>
+
+                <div th:if="${param.logout}">
+                    <span style="color:blue">로그아웃 성공</span>
+                </div>
+                <button type="submit" class="btn btn-lg btn-primary btn-block"
+                        style="background-color: #815854; border-color:#F7F7F7;">로 그 인
+                </button>
+            </form>
+
+            <div>
+                <p class="card-link">
+                    <a class="text-secondary" th:href="@{/users/signup}">회원가입</a>
+                    <a class="text-secondary" th:href="@{/}">처음으로</a>
+                </p>
+            </div>
+        </div>
     </div>
 
-    <div th:if="${param.logout}">
-        <span style="color:blue">로그아웃 성공</span>
-    </div>
-
-    <label for="id-memberId">ID:</label><br>
-    <input type="text" id="id-memberId" name="username" placeholder="ID"><br>
-
-    <label for="id-password">Password:</label><br>
-    <input type="password" id="id-password" name="password" placeholder="Password" />
-
-    <button type="submit">LogIn</button>
-</form>
-<p><a th:href="@{/users/signup}">회원가입</a></p>
-<p><a th:href="@{/}">처음으로</a></p>
-</div>
+</section>
 </body>

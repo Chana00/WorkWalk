@@ -1,0 +1,27 @@
+
+
+body {
+    background-image: url("/img/dog-bg1.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.card {
+    margin: 150px auto;
+
+}
+
+.card-body {
+    text-align: center;
+}
+
+.input-group {
+    margin: 5px;
+}
+
+.card-link {
+    text-align: right;
+    margin: 5px;
+}

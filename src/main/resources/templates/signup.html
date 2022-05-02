@@ -3,41 +3,181 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/signup.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic:wght@400;700&display=swap"
+          rel="stylesheet">
     <title>WorkWalk</title>
 </head>
 
-<body style="text-align: center">
-<h2> 회원가입 페이지 </h2>
-<br/>
-<div>
-<form class="needs-validation" th:action="@{/users/signup}" th:object="${user}" method="POST">
-    <div class="mb-3">
-        <label for="username">아이디 (username)</label>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text">@</span>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>  <!-- 주소 스크립트-->
+
+<!-- navbar -->
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFF4EC;">
+    <a class="navbar-brand" th:href="@{/}" style="font-family: 'Do Hyeon', sans-serif;  color: #815854;">
+        <img src="/img/WolkWalk-logo.png" width="30" height="30" alt="">
+        WorkWalk</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="nav navbar-nav  mr-auto navbar-right ">
+            <li class="nav-item">
+                <a class="nav-link" href="#">워커찾기</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">채팅목록</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">마이페이지</a>
+            </li>
+            <li class="nav-item">
+                <div sec:authorize="isAuthenticated()">
+                    <a class="nav-link text-danger" th:href="@{/users/logout}">로그아웃</a>
+                </div>
+                <div sec:authorize="isAnonymous()">
+                    <a class="nav-link text-info" th:href="@{/users/login}">로그인</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="inner">
+    <h2> 회원가입 </h2>
+    <br/>
+    <div>
+        <form class="needs-validation" th:action="@{/users/signup}" th:object="${user}" method="POST">
+
+            <div class="mb-3">
+                <label class="text-danger">ID (필수입력) </label>
+                <div class="input-group">
+                     <input type="text" class="form-control" placeholder="아이디" th:field="*{memberId}">
+                </div>
             </div>
-            <input type="text" class="form-control" id="username" placeholder="Username" required name="user-id">
-            <div class="invalid-feedback" style="width: 100%;">Your username is required.</div>
-        </div>
+
+            <div class="mb-3">
+                <label class="text-danger">PASSWORD (필수입력) </label>
+                <div class="input-group">
+                    <input type="password" class="form-control" placeholder="비밀번호" th:field="*{password}">
+                </div>
+            </div>
+            <hr>
+            <p class="text-center">유저 정보입력</p>
+            <hr>
+
+            <div class="mb-3">
+                <label class="text-info">이름 </label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="이름(실명)" th:field="*{name}">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="text-info">닉네임</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="사용할 닉네임" th:field="*{nickname}">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="text-info">주소</label>
+                <input class="findAddrBtn" type="button" onclick="findAddr()" value="주소찾기"><br>
+                <div class="input-group" style="margin-bottom: 5px">
+                    <input type="text" class="form-control" placeholder="우편번호" th:field="*{zipcode}" style="width: 20%" readonly>
+                    <input type="text" class="form-control" placeholder="도로명주소" th:field="*{address}"style="width: 80%" readonly>
+                </div>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="상세주소 입력" th:field="*{detailAddress}" >
+                </div>
+            </div>
+
+
+            <div class="mb-3">
+                <label class="text-info">연락처</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="전화번호" th:field="*{phone}">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="text-info">성별</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="성별" th:field="*{sex}">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="text-info">생일</label>
+                <div class="input-group">
+                    <input type="date" class="form-control" placeholder="생년월일" th:field="*{birth}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="text-info">자격증 유무</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="자격증" th:field="*{license}">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="text-info">경험 유무</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="경험" th:field="*{exp}">
+                </div>
+            </div>
+            <br><br>
+            <div style="text-align: center">
+            <button type="submit" class="btn btn-success" style="text-align: center;">회원가입</button>
+            </div>
+        </form>
     </div>
 
-    ID : <input type="text" th:field="*{memberId}"> <br>
-    PASSWORD : <input type="password" th:field="*{password}"><br>
-    <hr>유저 정보<hr>
-    이름 : <input type="text" th:field="*{name}"> <br><br>
-    닉네임 : <input type="text" th:field="*{nickname}"> <br><br>
-    주소 : <input type="text" th:field="*{address}"> <br><br>
-    연락처 : <input type="text" th:field="*{phone}"> <br><br>
-    성별 : <input type="text" th:field="*{sex}" > <br><br>
-    생일 : <input type="date" th:field="*{birth}"> <br><br>
-    자격증 : <input type="text" th:field="*{license}"> <br><br>
-    경험 : <input type="text" th:field="*{exp}"> <br>
-    <button type="submit">Join</button>
-
-</form>
+    <div style="text-align: right">
+    <a th:href="@{/users/login}">돌아가기</a>
+    </div>
 </div>
-    <br>
-<a href="login.html">돌아가기</a>
+
 </body>
+<script>
+    function findAddr() {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('zipcode').value = data.zonecode;
+                document.getElementById("address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("detailAddress").focus();
+            }
+        }).open();
+    }
+</script>
 </html>
