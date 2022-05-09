@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/search.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic:wght@400;700&display=swap"
+          rel="stylesheet">
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=11cab8eb5a31752c59c0a0ae66884067&libraries=services,clusterer"></script>
+    <title>WorkWalk</title>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFF4EC;">
+    <a class="navbar-brand" th:href="@{/}" style="font-family: 'Do Hyeon', sans-serif;  color: #815854;">
+        <img src="/img/WolkWalk-logo.png" width="30" height="30" alt="">
+        WorkWalk</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="nav navbar-nav  mr-auto navbar-right ">
+            <li class="nav-item">
+                <a class="nav-link" href="#">워커찾기</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">채팅목록</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">마이페이지</a>
+            </li>
+            <li class="nav-item">
+                <div sec:authorize="isAuthenticated()">
+                    <a class="nav-link text-danger" th:href="@{/users/logout}">로그아웃</a>
+                </div>
+                <div sec:authorize="isAnonymous()">
+                    <a class="nav-link text-info" th:href="@{/users/login}">로그인</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6" id="map"></div>
+        <div class="col-md-6" id="filter">
+            <p> 반려견 조건을 골라주세요 </p>
+            <form>
+                <div class="mb-2">
+                    <label> 반려견 성별 </label>
+                    <div class="input-group">
+                        <input type="radio" name="gender" checked>남자
+                        <input type="radio" name="gender">여자
+                        <input type="radio" name="gender">전체
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <label> 강아지 크기 </label>
+                    <div class="input-group">
+                        <input type="checkbox" name="dog-size" checked><label>소형견</label>
+                        <input type="checkbox" name="dog-size">중형견
+                        <input type="checkbox" name="dog-size">대형견
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <label> 반려견 나이 </label>
+                    <div class="input-group">
+                        <input type="number" name="dogAgeMin" min="0" max="30" step="1" value="0"> &nbsp;세 ~ &nbsp;
+                        <input type="number" name="dogAgeMax" min="0" max="30" step="1" value="30"> &nbsp;세
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <label> 중성화 여부 </label>
+                    <div class="input-group">
+                        <input type="radio" name="neutering" checked> 중성화 전
+                        <input type="radio" name="neutering"> 중성화 완료
+                        <input type="radio" name="neutering">전체
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <label> 예방접종 유무 </label>
+                    <div class="input-group">
+                        <input type="radio" name="vaccination" checked> 예
+                        <input type="radio" name="vaccination"> 아니오
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <label> 타 반려견 동반 산책 여부 </label>
+                    <div class="input-group">
+                        <input type="radio" name="walkTogether" checked> 예
+                        <input type="radio" name="walkTogether"> 아니오
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <label> 산책 시간대 </label>
+                    <div class="input-group">
+                        <input type="checkbox" name="time" checked> 아침
+                        <input type="checkbox" name="time"> 점심
+                        <input type="checkbox" name="time"> 저녁
+                        <input type="checkbox" name="time"> 밤
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success" style="text-align: center;">검색</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="/js/mapSearch.js"></script>
+</body>
+
+</html>

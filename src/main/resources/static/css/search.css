@@ -1,0 +1,27 @@
+body {
+    background-color: #F7F7F7;
+}
+
+.container{
+    border: #E5E5E5 solid 2px;
+}
+
+.container .row  {
+    height: 100vh;
+}
+#map {
+
+}
+
+#filter {
+
+
+}
+
+#filter p {
+    text-align: center;
+    padding: 20px 0px;
+    font-family: 'BM Dohyeon', sans-serif;
+    font-size: 22px;
+    color : #815854;
+}

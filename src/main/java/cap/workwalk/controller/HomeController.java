@@ -14,9 +14,4 @@ public class HomeController {
         return "react-spring 연결 - 현재 서버시간은 "+new Date() +"입니다. \n";
     }
 
-    @GetMapping("/test")
-    public String testcon(){
-        return "react-spring 연결 테스트";
-    }
-
 }
