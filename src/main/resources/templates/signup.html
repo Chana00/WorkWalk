@@ -103,8 +103,11 @@
                 <div class="input-group" style="margin-bottom: 5px">
                     <input type="text" class="form-control" placeholder="우편번호" th:field="*{zipcode}" style="width: 20%" readonly>
                     <input type="text" class="form-control" placeholder="도로명주소" th:field="*{address}"style="width: 80%" readonly>
+
                 </div>
+
                 <div class="input-group">
+                    <input type="text" class="form-control" placeholder="검색용주소" th:field="*{searchAddress}" style="display:none">
                     <input type="text" class="form-control" placeholder="상세주소 입력" th:field="*{detailAddress}" >
                 </div>
             </div>
@@ -163,6 +166,7 @@
                 // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
                 var roadAddr = data.roadAddress; // 도로명 주소 변수
                 var extraRoadAddr = ''; // 참고 항목 변수
+                var searchAddr = '';
 
                 if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
                     addr = data.roadAddress;
@@ -170,10 +174,13 @@
                     addr = data.jibunAddress;
                 }
 
+                searchAddr = data.jibunAddress.split("동 ")[0].concat("동");
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
+
                 document.getElementById('zipcode').value = data.zonecode;
                 document.getElementById("address").value = addr;
+                document.getElementById("searchAddress").value = searchAddr;
                 // 커서를 상세주소 필드로 이동한다.
                 document.getElementById("detailAddress").focus();
             }

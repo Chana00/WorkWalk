@@ -47,6 +47,9 @@ public class User
     @Column
     private String detailAddress;
 
+    @Column
+    private String searchAddress;
+
     //연락처
     @Column
     private String phone;

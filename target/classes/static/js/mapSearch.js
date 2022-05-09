@@ -1,3 +1,5 @@
+var userAddr =[[${userAddr}]];
+
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
     mapOption = {
         center: new kakao.maps.LatLng(37.582414, 127.009299), // 한성대학교
@@ -11,7 +13,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 var geocoder = new kakao.maps.services.Geocoder();
 
 // 주소로 좌표를 검색합니다
-geocoder.addressSearch('경기도 안양시 동안구 관양1동', function(result, status) {
+geocoder.addressSearch(userAddr, function(result, status) {
 
     // 정상적으로 검색이 완료됐으면
     if (status === kakao.maps.services.Status.OK) {
@@ -26,7 +28,9 @@ geocoder.addressSearch('경기도 안양시 동안구 관양1동', function(resu
 
         // 인포윈도우로 장소에 대한 설명을 표시합니다
         var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:230px;text-align:center;padding:6px 0; margin: 3px">우리 동네를 기준으로 매칭해요!<br> 원하는 조건을 골라주세요!</div>'
+            content: '<div style="width:230px;text-align:center;padding:6px 0; margin: 3px font-family: \'Nanum Gothic\', sans-serif;">우리 동네를 기준으로 매칭해요!<br> 회원님의 동네는? <br>'
+                + '<span style="font-weight: bold; font-size: 18px;">' + userAddr  + '</span>'
+                + '</div>'
         });
         infowindow.open(map, marker);
 
