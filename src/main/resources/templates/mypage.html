@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/mypage.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic:wght@400;700&display=swap"
+          rel="stylesheet">
+    <title>WorkWalk</title>
+</head>
+
+<body>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>  <!-- 주소 스크립트-->
+
+<!-- navbar -->
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFF4EC;">
+    <a class="navbar-brand" th:href="@{/}" style="font-family: 'Do Hyeon', sans-serif;  color: #815854;">
+        <img src="/img/WolkWalk-logo.png" width="30" height="30" alt="">
+        WorkWalk</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="nav navbar-nav  mr-auto navbar-right ">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/search/walker}">워커찾기</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">채팅목록</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/mypage}">마이페이지</a>
+            </li>
+            <li class="nav-item">
+                <div sec:authorize="isAuthenticated()">
+                    <a class="nav-link text-danger" th:href="@{/users/logout}">로그아웃</a>
+                </div>
+                <div sec:authorize="isAnonymous()">
+                    <a class="nav-link text-info" th:href="@{/users/login}">로그인</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container inner">
+    <h2> 내 정보 </h2>
+    <br/>
+
+    <div class="row" style="">
+        <div class="col-md-6">
+            <div class="card">
+                <img src="..." class="card-img-top" alt="프로필 사진">
+                <div class="card-body">
+                    <h5 class="card-title">내 프로필</h5>
+                    <p class="card-text">!내 프로필 정보 내용 표시 예정!</p>
+                    <a href="#" class="btn btn-primary">수정하기</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <img src="..." class="card-img-top" alt="예약 사진">
+                <div class="card-body">
+                    <h5 class="card-title">산책 예약 내역</h5>
+                    <p class="card-text">!예약 내용 표시 예정!</p>
+                    <a href="#" class="btn btn-primary">확인하기</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="pet-register">
+        <p style="color: #815854">내 반려견 등록하기</p>
+        <form class="needs-validation" id="petRegiForm" th:action="@{/mypage}" th:object="${pet}" method="POST">
+
+            <div>
+                <label class="text-info">반려견 이름</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="강아지이름" th:field="*{name}">
+                </div>
+            </div>
+
+            <div>
+                <label class="text-info">반려견 생일</label>
+                <div class="input-group">
+                    <input type="date" class="form-control" placeholder="생년월일" th:field="*{birth}">
+                </div>
+            </div>
+
+            <div>
+                <label class="text-info">반려견 성별</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type='radio' th:field="*{sex}" value='F' id="genderCheck01"
+                           checked/>
+                    <label class="form-check-label" for="genderCheck01"> 여아 </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type='radio' th:field="*{sex}" value='M' id="genderCheck02"/>
+                    <label class="form-check-label" for="genderCheck02"> 남아 </label>
+                </div>
+            </div>
+
+            <div>
+                <label class="text-info">반려견 크기</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type='radio' th:field="*{size}" value='S' id="sizeCheck01" checked/>
+                    <label class="form-check-label" for="sizeCheck01"> 소형 </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type='radio' th:field="*{size}" value='M' id="sizeCheck02"/>
+                    <label class="form-check-label" for="sizeCheck02"> 중형 </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type='radio' th:field="*{size}" value='L' id="sizeCheck03"/>
+                    <label class="form-check-label" for="sizeCheck03"> 대형 </label>
+                </div>
+            </div>
+
+            <div>
+                <label class="text-info">견종</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="견종 입력" th:field="*{kind}">
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-mb-6" style="margin-right: 100px">
+                        <label class="text-info">중성화 여부</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type='radio' th:field="*{neutering}" value='N'
+                                   id="neuteringCheck01"
+                                   checked/>
+                            <label class="form-check-label" for="neuteringCheck01"> 중성화 전 </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type='radio' th:field="*{neutering}" value='Y'
+                                   id="neuteringCheck02"
+                                   checked/>
+                            <label class="form-check-label" for="neuteringCheck02"> 중성화 완료 </label>
+                        </div>
+                    </div>
+
+                    <div class="col-mb-6">
+                        <label class="text-info">예방접종 여부</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type='radio' th:field="*{vaccination}" value='N'
+                                   id="vaccinationCheck01"
+                                   checked/>
+                            <label class="form-check-label" for="vaccinationCheck01"> 미접종 </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type='radio' th:field="*{vaccination}" value='Y'
+                                   id="vaccinationCheck02"
+                                   checked/>
+                            <label class="form-check-label" for="vaccinationCheck02"> 접종 완료 </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <label class="text-info">강아지 성격을 알려주세요</label>
+                <div class="input-group">
+                <textarea cols="100" rows="3" th:field="*{personality}"> </textarea>
+                </div>
+            </div>
+
+            <br><br>
+
+            <div style="text-align: center">
+                <button type="submit" class="btn btn-primary" style="text-align: center;" onclick="if(!confirm('정말 등록하시겠습니까?')){return false}">반려견 등록</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+
+</script>
+</body>
+</html>

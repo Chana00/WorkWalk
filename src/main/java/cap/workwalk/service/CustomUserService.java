@@ -2,8 +2,10 @@ package cap.workwalk.service;
 
 import cap.workwalk.adapter.UserDetailsAdapter;
 import cap.workwalk.dto.UserInfoDto;
+import cap.workwalk.entity.Pet;
 import cap.workwalk.entity.Role;
 import cap.workwalk.entity.User;
+import cap.workwalk.repository.PetRepository;
 import cap.workwalk.repository.RoleRepository;
 import cap.workwalk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class CustomUserService implements UserDetailsService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private PetRepository petRepository;
 
     private final BCryptPasswordEncoder passwordEncoder;
 
@@ -66,6 +71,14 @@ public class CustomUserService implements UserDetailsService {
         return role;
     }
 
+    public Integer registrationPet(String username, Pet pet) {
+        User user = userRepository.findByMemberId(username)
+                .orElseThrow(() -> new UsernameNotFoundException("ID : " + username + " not found"));
+        System.out.println("펫 새로 등록 " + user.getName());
+        pet.setUser(user);
+
+        return petRepository.save(pet).getId();
+    }
 
 
 }

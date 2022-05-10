@@ -6,6 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
@@ -29,15 +31,15 @@ public class User
     private String password;
 
     //이름
-    @Column
+    @Column(nullable=false)
     private String name;
 
     //닉네임
-    @Column
+    @Column(nullable=false)
     private String nickname;
 
     //도로명주소
-    @Column
+    @Column(nullable=false)
     private String address;
 
     //우편번호
@@ -47,7 +49,7 @@ public class User
     @Column
     private String detailAddress;
 
-    @Column
+    @Column(nullable=false)
     private String searchAddress;
 
     //연락처
@@ -85,6 +87,4 @@ public class User
             inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
     private List<Role> roles;
 
-    //@OneToMany()
-   // private List<Pet> pet;
 } 

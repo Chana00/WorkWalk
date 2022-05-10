@@ -37,8 +37,10 @@ public class UserController {
             userRoles.add(role);
 
             customUserService.signUpUser(user, userRoles);
-
-            return "redirect:/users/home";
+            return "redirect:/";
     }
+
+
+
 
 }

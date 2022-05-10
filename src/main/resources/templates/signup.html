@@ -46,7 +46,7 @@
                 <a class="nav-link" href="#">채팅목록</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">마이페이지</a>
+                <a class="nav-link" th:href="@{/mypage}">마이페이지</a>
             </li>
             <li class="nav-item">
                 <div sec:authorize="isAuthenticated()">
@@ -146,9 +146,10 @@
                     <input type="text" class="form-control" placeholder="경험" th:field="*{exp}">
                 </div>
             </div>
+
             <br><br>
             <div style="text-align: center">
-            <button type="submit" class="btn btn-success" style="text-align: center;">회원가입</button>
+            <button type="submit" class="btn btn-primary" style="text-align: center;">다음으로</button>
             </div>
         </form>
     </div>

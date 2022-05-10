@@ -33,13 +33,13 @@
     <div class="collapse navbar-collapse " id="navbarSupportedContent">
         <ul class="nav navbar-nav  mr-auto navbar-right ">
             <li class="nav-item">
-                <a class="nav-link" href="#">워커찾기</a>
+                <a class="nav-link" th:href="@{/search/walker}">워커찾기</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">채팅목록</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">마이페이지</a>
+                <a class="nav-link" th:href="@{/mypage}">마이페이지</a>
             </li>
             <li class="nav-item">
                 <div sec:authorize="isAuthenticated()">
@@ -88,9 +88,9 @@
                 <div class="mb-2">
                     <label> 중성화 여부 </label>
                     <div class="input-group">
-                        <input type="radio" name="neutering" checked> 중성화 전
+                        <input type="radio" name="neutering" checked> 전체
+                        <input type="radio" name="neutering"> 중성화 전
                         <input type="radio" name="neutering"> 중성화 완료
-                        <input type="radio" name="neutering">전체
                     </div>
                 </div>
 
@@ -120,7 +120,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-success" style="text-align: center;">검색</button>
+                <button type="submit" class="btn btn-outline-success" style="text-align: center;">검색</button>
             </form>
         </div>
     </div>
@@ -133,11 +133,18 @@
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
             center: new kakao.maps.LatLng(37.582414, 127.009299), // 한성대학교
-            level: 3
+            level: 4
         };
 
     // 지도를 생성
     var map = new kakao.maps.Map(mapContainer, mapOption);
+
+    var imageSrc = '/img/petMapMarker.png', // 마커이미지의 주소입니다
+        imageSize = new kakao.maps.Size(60, 60), // 마커이미지의 크기입니다
+        imageOption = {offset: new kakao.maps.Point(27, 60)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+    // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 
     // 주소-좌표 변환 객체를 생성
     var geocoder = new kakao.maps.services.Geocoder();
@@ -153,12 +160,15 @@
             // 결과값으로 받은 위치를 마커로 표시합니다
             var marker = new kakao.maps.Marker({
                 map: map,
-                position: coords
+                position: coords,
+                image: markerImage,
+                level : 4
             });
 
             // 인포윈도우로 장소에 대한 설명을 표시합니다
             var infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="width:230px;text-align:center;padding:6px 0; margin: 3px font-family: \'Nanum Gothic\', sans-serif;">우리 동네를 기준으로 매칭해요!<br> 회원님의 동네는? <br>'
+                content: '<div style="width:230px;text-align:center;padding:6px 0; margin: 3px; font-family: \'Nanum Gothic\', sans-serif; ">' +
+                    '우리 동네를 기준으로 매칭해요!<br> 회원님의 동네는? <br>'
                     + '<span style="font-weight: bold; font-size: 18px;">' + userAddr  + '</span>'
                     + '</div>'
             });

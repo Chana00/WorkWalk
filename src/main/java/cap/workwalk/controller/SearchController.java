@@ -25,7 +25,6 @@ public class SearchController {
         User user = userRepository.findByMemberId(principal.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("ID not found"));
         model.addAttribute("userAddr", user.getSearchAddress());
-        System.out.println(user.getSearchAddress());
         return "walkersearch";
     }
 }

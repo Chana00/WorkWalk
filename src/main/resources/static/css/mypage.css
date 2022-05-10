@@ -1,0 +1,33 @@
+body {
+    background-color: #FAFAFA;
+}
+
+.inner {
+    padding-top: 50px;
+    padding-left: 100px;
+    padding-right: 100px;
+    font-family: 'Nanum Gothic', sans-serif;
+    width: 1000px;
+    background-color: #F7F7F7;
+
+
+}
+
+.inner .card {
+    width: 18rem;
+    text-align: center;
+    margin: 5px;
+}
+
+.inner .pet-register {
+    border: 2px solid #E5E5E5 ;
+    border-radius: 5px;
+    background-color: white;
+    padding: 15px 20px;
+    margin: 10px 10px 10px 20px;
+}
+
+.inner .pet-register p{
+    font-size: 20px;
+    font-family: 'BM Dohyeon', sans-serif;
+}
