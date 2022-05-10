@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+작성자 아이디 : <span th:text="${postdetail.user.nickname}"></span></br>
+작성자 동네 : <span th:text="${postdetail.user.address}"></span></br>
+작성자 성별 : <span th:text="${postdetail.user.sex}"></span></br>
+내용 : <span th:text="${postdetail.content}"></span></br>
+상태 : <span th:text="${postdetail.status}"></span></br>
+
+<div th:if="${not #lists.isEmpty(postdetail.user.pets)}">
+<table border="1">
+    <tr th:each="pet : ${postdetail.user.pets}">
+    <td th:text="${pet.name}"></td>
+    <td th:text="${pet.personality}"></td>
+    <td th:text="${pet.kind}"></td>
+    <td th:text="${pet.sex}"></td>
+    <td th:text="${pet.neutering}"></td>
+    <td th:text="${pet.vaccination}"></td>
+    <td th:text="${pet.birth}"></td>
+</tr>
+</table>
+</div>
+</body>
+</html>

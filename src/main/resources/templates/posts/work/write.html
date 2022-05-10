@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p 작성자 아이디 : th:text="${userdetail.memberId}"/>
+<div th:text="${userdetail.nickname}"></div>
+<p>동네 : <div th:text="${userdetail.address}"></div></p></br>
+<table border="1">
+    <tr>
+        <th>이름</th>
+        <th>성격</th>
+        <th>견종</th>
+        <th>성별</th>
+        <th>중성화</th>
+        <th>예방접종</th>
+        <th>생일</th>
+    </tr>
+    <tr th:each="pet : ${petdetail}">
+        <td th:text="${pet.name}"></td>
+        <td th:text="${pet.personality}"></td>
+        <td th:text="${pet.kind}"></td>
+        <td th:text="${pet.sex}"></td>
+        <td th:text="${pet.neutering}"></td>
+        <td th:text="${pet.vaccination}"></td>
+        <td th:text="${pet.birth}"></td>
+    </tr>
+</table></br>
+
+<form th:action="@{/posts/work/write}" method="post">
+    <input type="hidden" name="posttype" th:value="${1}"/>
+    <input type="hidden" name="status" th:value="${'ing...'}"/>
+    <input type="hidden" name="user" th:value="${userdetail.id}"/>
+    <textarea name="content"></textarea><br>
+    <input type="submit" value="등록"/>
+</form>
+</body>
+</html>

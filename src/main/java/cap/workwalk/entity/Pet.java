@@ -1,19 +1,18 @@
 package cap.workwalk.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name="pet")
 @Getter
-@Setter
 @NoArgsConstructor
 public class Pet {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column
@@ -38,7 +37,24 @@ public class Pet {
     private String personality;
     //이미지
     @Column
-    private String imgUrl;
+    private String img_url;
+
+    @ManyToOne
+    @JoinColumn(name="userId")
+    private User user;
+
+
+    @Builder
+    public Pet(String name, String sex, String birth, String kind, String neutering, String vaccination, String personality, User user) {
+        this.name=name;
+        this.sex=sex;
+        this.birth=birth;
+        this.kind=kind;
+        this.neutering=neutering;
+        this.vaccination=vaccination;
+        this.personality=personality;
+        this.user=user;
+    }
 
 
 }

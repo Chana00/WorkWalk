@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <table class="table table-hover">
+        <a th:href="@{/posts/work/write}">글쓰기</a>
+
+        <thread>
+            <th>동네</th>
+            <th>작성자</th>
+            <th>내용</th>
+            <th>상태</th>
+        </thread>
+        <tr th:each="list : ${worklist}">
+            <td th:text="${list.user.address}"></td>
+            <td th:text="${list.user.nickname}"></td>
+            <td>
+                <a th:href="@{'/posts/work/' + ${list.id}}">
+                    <span th:text="${list.content}"></span></a></td>
+            <td th:text="${list.status}"></td>
+        </tr>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <form th:action="@{/users/pet}" method="post">
+    <input type="hidden" name="userId" th:value="${user.id}" />
+    이름 <input type="text" name="name" /></br>
+    성별 <input type="text" name="sex"/></br>
+    생일 <input type="text" name="birth"/></br>
+    견종 <input type="text" name="kind"/></br>
+    중성화 <input type="text" name="neutering"/></br>
+    예방접종<input type="text" name="vaccination"/></br>
+    성격 <input type="text" name="personality"/></br>
+    <input type="submit" value="등록"/>
+  </form>
+</body>
+</html>

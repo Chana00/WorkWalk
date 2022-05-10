@@ -1,11 +1,9 @@
 package cap.workwalk.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,6 +23,7 @@ public class User
     private String memberId;
 
     //비밀번호
+
     @Column(nullable=false)
     private String password;
 
@@ -67,6 +66,12 @@ public class User
     @Column
     private int point;
 
+    @OneToMany(mappedBy =  "user", fetch = FetchType.EAGER)
+    private List<Pet> pets = new ArrayList<Pet>();
+
+    @OneToMany(mappedBy ="user", fetch =FetchType.LAZY)
+    private List<Post> posts = new ArrayList<Post>();
+
     //유저인지 관리자인지 설정 user-role 양방향 many-many 관계
     @ManyToMany(cascade=CascadeType.MERGE)
     @JoinTable(
@@ -75,6 +80,5 @@ public class User
             inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
     private List<Role> roles;
 
-    //@OneToMany()
-   // private List<Pet> pet;
-} 
+
+}
