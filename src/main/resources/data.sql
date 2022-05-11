@@ -11,8 +11,8 @@ insert into pet(id,name,sex,birth,kind,neutering,vaccination,personality,img_url
 insert into pet(id,name,sex,birth,kind,neutering,vaccination,personality,img_url, user_id)values
     (2,'choco','F','2021-04-10','푸들','Y','Y','소심','yyyyyyyy',5);
 
-insert into post(id, content, posttype, status, member_id) VALUES (1,'산책해주실분구해요',1,'ing...',3);
-insert into post(id, content, posttype, status, member_id) VALUES (2,'대신산책해드립니다',2,'ing...',4);
+insert into post(id, content, posttype, status, member_id) VALUES (1,'산책해주실분구해요','work','ing...',3);
+insert into post(id, content, posttype, status, member_id) VALUES (2,'대신산책해드립니다','walk','ing...',4);
 
 
 insert into user_role(user_id, role_id) values (3,1), (3,2), (4,2),(5,2);

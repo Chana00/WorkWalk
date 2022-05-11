@@ -28,7 +28,7 @@ public class Post {
     private String status;
 
     @Column
-    private Integer posttype;
+    private String posttype;
 
     @ManyToOne
     @JoinColumn(name = "memberId", updatable = false)
@@ -36,7 +36,7 @@ public class Post {
 
 
     @Builder
-    public Post(Integer id,String content, String status, Integer posttype, User user) {
+    public Post(Integer id,String content, String status, String posttype, User user) {
         this.id=id;
         this.content = content;
         this.status = status;

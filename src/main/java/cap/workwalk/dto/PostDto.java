@@ -13,7 +13,7 @@ public class PostDto {
     private Integer id;
     private String content;
     private String status;
-    private Integer posttype;
+    private String posttype;
     private User user;
 
 
@@ -30,7 +30,7 @@ public class PostDto {
     }
 
     @Builder
-    public PostDto(Integer id, String content, String status, Integer posttype, User user) {
+    public PostDto(Integer id, String content, String status, String posttype, User user) {
         this.id=id;
         this.content = content;
         this.status = status;

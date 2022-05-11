@@ -24,16 +24,10 @@ public class PostService {
         return postRepository.save(postDto.toEntity()).getId();
     }
 
-    @Transactional //user 테이블 fetch=FetchType.LAZY-> transactional 사용해서 테이블 불러오기
-    public List<Post> findPosttypeWork() {
-        return postRepository.findByPosttype(1);
-    }
-
     @Transactional //user 테이블 fetch=FetchType.LAZY -> transactional 사용해서 데이터 불러오기
-    public List<Post> findPosttypeWalk() {
-        return postRepository.findByPosttype(2);
+    public List<Post> findByPosttype(String posttype) {
+        return postRepository.findByPosttype(posttype);
     }
-
 
     @Transactional
     public Post findById(Integer id) {
@@ -43,6 +37,12 @@ public class PostService {
         }
         return post.get();
     }
+
+    /*@Transactional
+    public void deletePost(Integer id) {
+        postRepository.deleteById(id);
+    }*/
+
 }
 
 
