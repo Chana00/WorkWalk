@@ -32,8 +32,8 @@
     </tr>
   </table>
 </div></br>
-<form th:action="@{/posts/walk/write}" method="post">
-  <input type="hidden" name="posttype" th:value="${2}"/>
+<form th:action="@{/posts/write}" method="post">
+  <input type="hidden" name="posttype" th:value="${'walk'}"/>
   <input type="hidden" name="status" th:value="${'ing...'}"/>
   <input type="hidden" name="user" th:value="${userdetail.id}"/>
   <textarea name="content"></textarea><br>

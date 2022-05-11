@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>게시글 상세보기</title>
 </head>
 <body>
 작성자 아이디 : <span th:text="${postdetail.user.nickname}"></span></br>
@@ -23,6 +23,12 @@
     <td th:text="${pet.birth}"></td>
 </tr>
 </table>
+</div></br>
+<div th:if="${postdetail.user.id == userdetail.id}">
+    <a th:href="@{'/posts/'+ ${postdetail.posttype} + '/edit/' + ${postdetail.id}}">
+        <button>수정</button></a>
+        <button>삭제</button></a>
 </div>
+</table>
 </body>
 </html>

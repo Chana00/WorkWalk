@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+작성자 아이디 : <span th:text="${postdetail.user.nickname}"></span></br>
+작성자 동네 : <span th:text="${postdetail.user.address}"></span></br>
+작성자 성별 : <span th:text="${postdetail.user.sex}"></span></br></br>
+
+<div th:if="${not #lists.isEmpty(postdetail.user.pets)}">
+    <table border="1">
+        <tr th:each="pet : ${postdetail.user.pets}">
+            <td th:text="${pet.name}"></td>
+            <td th:text="${pet.personality}"></td>
+            <td th:text="${pet.kind}"></td>
+            <td th:text="${pet.sex}"></td>
+            <td th:text="${pet.neutering}"></td>
+            <td th:text="${pet.vaccination}"></td>
+            <td th:text="${pet.birth}"></td>
+        </tr>
+    </table>
+</div></br>
+
+<form th:action="@{'/posts/' + ${postdetail.posttype} +'/edit'}" method="post">
+    <input type="hidden" name="id" th:value="${postdetail.id}"/>
+    <input type="hidden" name="posttype" th:value="${postdetail.posttype}"/>
+    <input type="hidden" name="user" th:value="${postdetail.user.id}"/>
+    내용 : <input type="text" name="content" th:value="${postdetail.content}"/><br>
+
+    <div class="form-check form-check-inline">
+        <input type="radio" value="ing..." name="status">
+        <label>ing...</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input type="radio" value="완료" class="form-check-input" id="itemType2" name="status">
+        <label for="itemType2" class="form-check-label">완료</label>
+    </div>
+    <input type="submit" value="등록"/>
+</form>
+
+</body>
+</html>

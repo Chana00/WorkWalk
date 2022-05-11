@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>게시글 작성</title>
 </head>
 <body>
-<p 작성자 아이디 : th:text="${userdetail.memberId}"/>
-<div th:text="${userdetail.nickname}"></div>
-<p>동네 : <div th:text="${userdetail.address}"></div></p></br>
+작성자 아이디 : <span th:text="${userdetail.memberId}"/></br>
+작성자 닉네임 : <span th:text="${userdetail.nickname}"/></br>
+동네 : <span th:text="${userdetail.address}"></span></br>
 <table border="1">
     <tr>
         <th>이름</th>
@@ -29,8 +29,8 @@
     </tr>
 </table></br>
 
-<form th:action="@{/posts/work/write}" method="post">
-    <input type="hidden" name="posttype" th:value="${1}"/>
+<form th:action="@{/posts/write}" method="post">
+    <input type="hidden" name="posttype" th:value="${'work'}"/>
     <input type="hidden" name="status" th:value="${'ing...'}"/>
     <input type="hidden" name="user" th:value="${userdetail.id}"/>
     <textarea name="content"></textarea><br>

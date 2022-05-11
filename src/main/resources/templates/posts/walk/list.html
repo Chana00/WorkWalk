@@ -20,7 +20,7 @@
         <tr th:each="list : ${walklist}">
             <td th:text="${list.user.address}"></td>
             <td th:text="${list.user.nickname}"></td>
-            <td><a th:href="@{'/posts/walk/' + ${list.id}}">
+            <td><a th:href="@{'/posts/'+ ${list.posttype} + '/'+ ${list.id}}">
                 <span th:text="${list.content}"></span></a></td>
             <td th:text="${list.status}"></td>
             <td th:text="${list.user.license}"></td>

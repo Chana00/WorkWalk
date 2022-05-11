@@ -50,7 +50,7 @@ public class UserController {
             return "redirect:/users/login";
     }
 
-    @GetMapping("/mypage")
+    @GetMapping("/mypage") //마이페이지
     public String mypage(@AuthenticationPrincipal UserDetailsAdapter userDetailsAdapter, Model model) {
         if(userDetailsAdapter != null) {
             model.addAttribute("user", userDetailsAdapter.getUser());
@@ -59,7 +59,7 @@ public class UserController {
         return "mypage";
     }
 
-    @PostMapping("/pet")
+    @PostMapping("/pet") //반려견 등록
     public String save(@AuthenticationPrincipal UserDetailsAdapter userDetailsAdapter, PetDto petDto) {
         petService.petSave(userDetailsAdapter.getUser().getId(), petDto);
         return "redirect:/users/mypage";

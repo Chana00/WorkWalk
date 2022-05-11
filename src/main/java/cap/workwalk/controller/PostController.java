@@ -4,6 +4,7 @@ package cap.workwalk.controller;
 import cap.workwalk.adapter.UserDetailsAdapter;
 import cap.workwalk.dto.PostDto;
 import cap.workwalk.repository.PetRepository;
+import cap.workwalk.repository.PostRepository;
 import cap.workwalk.service.PostService;
 
 
@@ -13,65 +14,78 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/posts")
 public class PostController {
 
     private final PostService postService;
     private final PetRepository petRepository;
+    private final PostRepository postRepository;
 
-    @GetMapping("/posts/work/list")
-    public String Work(Model model) {
-        model.addAttribute("worklist", postService.findPosttypeWork());
-        return "posts/work/list";
+
+    @GetMapping("/{posttype}/list") //게시판 목록
+    public String Postlist(@PathVariable String posttype, Model model) {
+        if (Objects.equals(posttype, "work")){
+            model.addAttribute("worklist", postService.findByPosttype("work"));
+            return "posts/work/list";
+        }
+        else if (Objects.equals(posttype, "walk")){
+            model.addAttribute("walklist", postService.findByPosttype("walk"));
+            return "posts/walk/list";
+        }
+        return "";
     }
 
-    @GetMapping("/posts/walk/list")
-    public String Walk(Model model) {
-        model.addAttribute("walklist", postService.findPosttypeWalk());
-        return "posts/walk/list";
-    }
 
-    @GetMapping("/posts/walk/write") //로그인 된 user 데이터를 게시글 작성시 자동으로 불러오기
-    public String walkwrite(@AuthenticationPrincipal UserDetailsAdapter userDetailsAdapter, Model model) {
+    @GetMapping("/{posttype}/write") //로그인 된 user 데이터를 게시글 작성시 자동으로 불러오기
+    public String Write(@PathVariable String posttype, @AuthenticationPrincipal UserDetailsAdapter userDetailsAdapter, Model model) {
         if(userDetailsAdapter != null) {
             model.addAttribute("userdetail",userDetailsAdapter.getUser());
             model.addAttribute("petdetail", petRepository.findByUser(userDetailsAdapter.getUser()));
         }
-        return "posts/walk/write";
+        if(Objects.equals(posttype, "work")) {return "posts/work/write";}
+        else if(Objects.equals(posttype, "walk")) {return "posts/walk/write";}
+        return "";
     }
 
-    @PostMapping("/posts/walk/write")
-    public String walksave(PostDto postDto) {
+
+    @PostMapping("/write") //게시글 등록
+    public String Save(PostDto postDto) {
         postService.savePost(postDto);
-        return "redirect:/posts/walk/list";
-    }
-
-    @PostMapping("/posts/work/write")
-    public String worksave(PostDto postDto) {
-        postService.savePost(postDto);
-        return "redirect:/posts/work/list";
-    }
-
-    @GetMapping("/posts/work/write") //로그인 된 user 데이터를 게시글 작성시 자동으로 불러오기
-    public String workwrite(@AuthenticationPrincipal UserDetailsAdapter userDetailsAdapter, Model model) {
-        if(userDetailsAdapter != null) {
-            model.addAttribute("userdetail",userDetailsAdapter.getUser());
-            model.addAttribute("petdetail", petRepository.findByUser(userDetailsAdapter.getUser()));
+        if (Objects.equals(postDto.getPosttype(), "work")) {
+            return "redirect:/posts/work/list";
+        } else if (Objects.equals(postDto.getPosttype(), "walk")) {
+            return "redirect:/posts/walk/list";
         }
-        return "posts/work/write";
+        return "";
     }
 
-    @GetMapping("/posts/work/{id}")
-    public String findByIdWork(@PathVariable Integer id, Model model){
-        model.addAttribute("postdetail",postService.findById(id));
+    @GetMapping("/{posttype}/{id}") //게시글 상세조회
+    public String Detail(@PathVariable String posttype, @PathVariable Integer id,@AuthenticationPrincipal UserDetailsAdapter userDetailsAdapter, Model model){
+        model.addAttribute("postdetail", postRepository.findByPosttypeAndId(posttype,id));
+        model.addAttribute("userdetail",userDetailsAdapter.getUser());
         return "posts/detail";
     }
 
-    @GetMapping("/posts/walk/{id}")
-    public String findByIdWalk(@PathVariable Integer id, Model model){
-        model.addAttribute("postdetail",postService.findById(id));
-        return "posts/detail";
+    @GetMapping("/{posttype}/edit/{id}") //게시글 수정
+    public String Edit(@PathVariable String posttype, @PathVariable Integer id, Model model){
+        model.addAttribute("postdetail",postRepository.findByPosttypeAndId(posttype,id));
+        return "posts/edit";
     }
+
+    @PostMapping("/{posttype}/edit")
+    public String Update(PostDto postDto) {
+        postService.savePost(postDto);
+        if (Objects.equals(postDto.getPosttype(), "work")) {
+            return "redirect:/posts/work/list";
+        } else if (Objects.equals(postDto.getPosttype(), "walk")) {
+            return "redirect:/posts/walk/list";
+        }
+        return "";
+    }
+
 }

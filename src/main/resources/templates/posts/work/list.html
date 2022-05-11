@@ -20,7 +20,7 @@
             <td th:text="${list.user.address}"></td>
             <td th:text="${list.user.nickname}"></td>
             <td>
-                <a th:href="@{'/posts/work/' + ${list.id}}">
+                <a th:href="@{'/posts/'+ ${list.posttype} + '/'+ ${list.id}}">
                     <span th:text="${list.content}"></span></a></td>
             <td th:text="${list.status}"></td>
         </tr>
