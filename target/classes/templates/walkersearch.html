@@ -16,11 +16,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic:wght@400;700&display=swap"
           rel="stylesheet">
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=11cab8eb5a31752c59c0a0ae66884067&libraries=services,clusterer"></script>
+    <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=11cab8eb5a31752c59c0a0ae66884067&libraries=services,clusterer"></script>
     <title>WorkWalk</title>
 </head>
 
 <body>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>  <!-- 주소 스크립트-->
+
+
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFF4EC;">
     <a class="navbar-brand" th:href="@{/}" style="font-family: 'Do Hyeon', sans-serif;  color: #815854;">
         <img src="/img/WolkWalk-logo.png" width="30" height="30" alt="">
@@ -53,127 +63,239 @@
     </div>
 </nav>
 
+
 <div class="container">
     <div class="row">
         <div class="col-md-6" id="map"></div>
         <div class="col-md-6" id="filter">
-            <p> 반려견 조건을 골라주세요 </p>
+            <p class="title"> 반려견 조건을 골라주세요 </p>
+            <p class="desc">우리 동네를 기준으로 매칭해요!<br> 워커님의 동네는? <br>
+                <span>[[${userAddrDong}]]</span>
+            </p>
             <form>
-                <div class="mb-2">
-                    <label> 반려견 성별 </label>
-                    <div class="input-group">
-                        <input type="radio" name="gender" checked>전체
-                        <input type="radio" name="gender">남아
-                        <input type="radio" name="gender">여아
+                <div>
+                    <label class="text-info">반려견 성별</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type='radio' value='F' id="genderCheck01" name="gender"
+                               checked/>
+                        <label class="form-check-label" for="genderCheck01"> 여아 </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type='radio' value='M' id="genderCheck02" name="gender"/>
+                        <label class="form-check-label" for="genderCheck02"> 남아 </label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type='radio' value='X' id="genderCheck03" name="gender"/>
+                        <label class="form-check-label" for="genderCheck03"> 상관없음 </label>
                     </div>
                 </div>
 
-                <div class="mb-2">
-                    <label> 강아지 크기 </label>
-                    <div class="input-group">
-                        <input type="checkbox" name="dog-size" checked><label>소형견</label>
-                        <input type="checkbox" name="dog-size">중형견
-                        <input type="checkbox" name="dog-size">대형견
+                <div>
+                    <label class="text-info">반려견 크기</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type='checkbox' value='S' id="sizeCheck01" name="size" checked/>
+                        <label class="form-check-label" for="sizeCheck01"> 소형견 </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type='checkbox' value='M' id="sizeCheck02" name="size"/>
+                        <label class="form-check-label" for="sizeCheck02"> 중형견 </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type='checkbox' value='L' id="sizeCheck03" name="size"/>
+                        <label class="form-check-label" for="sizeCheck03"> 대형견 </label>
                     </div>
                 </div>
 
-                <div class="mb-2">
-                    <label> 반려견 나이 </label>
+                <div>
+                    <label class="text-info"> 반려견 나이 </label>
                     <div class="input-group">
                         <input type="number" name="dogAgeMin" min="0" max="30" step="1" value="0"> &nbsp;세 ~ &nbsp;
                         <input type="number" name="dogAgeMax" min="0" max="30" step="1" value="30"> &nbsp;세
                     </div>
                 </div>
 
-                <div class="mb-2">
-                    <label> 중성화 여부 </label>
-                    <div class="input-group">
-                        <input type="radio" name="neutering" checked> 전체
-                        <input type="radio" name="neutering"> 중성화 전
-                        <input type="radio" name="neutering"> 중성화 완료
+                <div>
+                    <label class="text-info">중성화 여부</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type='radio' value='N' id="neuteringCheck01" name="neutering"/>
+                        <label class="form-check-label" for="neuteringCheck01" checked> 중성화 전 </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type='radio' value='Y'
+                               id="neuteringCheck02" name="neutering"/>
+                        <label class="form-check-label" for="neuteringCheck02"> 중성화 완료 </label>
                     </div>
                 </div>
 
-                <div class="mb-2">
-                    <label> 예방접종 유무 </label>
-                    <div class="input-group">
-                        <input type="radio" name="vaccination" checked> 예
-                        <input type="radio" name="vaccination"> 아니오
+                <div class="col-mb-6">
+                    <label class="text-info">예방접종 여부</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type='radio' name="vaccination" value='N'
+                               id="vaccinationCheck01"
+                               checked/>
+                        <label class="form-check-label" for="vaccinationCheck01"> 미접종 </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type='radio' name="vaccination" value='Y'
+                               id="vaccinationCheck02"
+                               checked/>
+                        <label class="form-check-label" for="vaccinationCheck02"> 접종 완료 </label>
                     </div>
                 </div>
 
-                <div class="mb-2">
-                    <label> 타 반려견 동반 산책 여부 </label>
-                    <div class="input-group">
-                        <input type="radio" name="walkTogether" checked> 예
-                        <input type="radio" name="walkTogether"> 아니오
+                <div>
+                    <label class="text-info">타 반려견 동반 산책 여부</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type='radio' value='Y' id="otherPetCheck01" name="otherPet"
+                               checked/>
+                        <label class="form-check-label" for="otherPetCheck01"> 네 </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type='radio' value='N' id="otherPetCheck02" name="otherPet"/>
+                        <label class="form-check-label" for="otherPetCheck02"> 아니요 </label>
                     </div>
                 </div>
 
-                <div class="mb-2">
-                    <label> 산책 시간대 </label>
+                <div>
+                    <label class="text-info"> 산책 시간대 선택 </label>
                     <div class="input-group">
-                        <input type="checkbox" name="time" checked> 아침
-                        <input type="checkbox" name="time"> 점심
-                        <input type="checkbox" name="time"> 저녁
-                        <input type="checkbox" name="time"> 밤
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type='checkbox' value='morning' id="timeCheck01" name="time"
+                                   checked/>
+                            <label class="form-check-label" for="timeCheck01"> 아침 </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type='checkbox' value='lunch' id="timeCheck02" name="time"
+                                   checked/>
+                            <label class="form-check-label" for="timeCheck02"> 점심 </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type='checkbox' value='dinner' id="timeCheck03" name="time"
+                                   checked/>
+                            <label class="form-check-label" for="timeCheck03"> 저녁 </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type='checkbox' value='night' id="timeCheck04" name="time"
+                                   checked/>
+                            <label class="form-check-label" for="timeCheck04"> 밤 </label>
+                        </div>
                     </div>
+
                 </div>
 
-                <button type="submit" class="btn btn-outline-success" style="text-align: center;">검색</button>
+                <button type="submit" class="btn btn-outline-success btn-lg btn-block">검색</button>
             </form>
         </div>
     </div>
 </div>
 
 
+<!-- Modal - 반려견 목록 -->
+<div class="modal fade" id="petList" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">우리동네 반려견 : <span th:text="${sameAddressPetList.size()}"></span> 퍼피</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div th:each="puppy : ${sameAddressPetList}">
+                    <div class="modal-puppy">
+                        <div class="modal-puppy-img" >사진</div>
+                        <div class="modal-puppy-name" >이름 : <span th:text="${puppy.name}"></span></div>
+                        <div class="modal-puppy-gender">
+                         <span th:if="${puppy.sex == 'F'}" style="color: #f80759">여아</span>
+                         <span th:if="${puppy.sex == 'M'}" style="color: #4286f4">남아</span>
+                        </div>
+                        <div class="modal-puppy-kind"> <b th:text="${puppy.kind}"></b></div>
+                        <a class="modal-puppy-link" href="#">게시글 보러가기</a>
+                    </div>
+                </div>
+
+                <!--
+                산책을 해줄 워커를 찾는 반려견 기준
+                <div th:each="puppy : ${sameAddressUserList}">
+                    <div>주인 : <span th:text="${puppy.nickname}"></span></div>
+                    <div>경험 : <span th:text="${puppy.license}"></span></div>
+                    <hr>
+                </div>
+                -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- script -->
 <script th:inline="javascript">
-    var userAddr =[[${userAddr}]];
+    var userAddr = [[${userAddr}]];
+    var userAddrDong = [[${userAddrDong}]];
 
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
-            center: new kakao.maps.LatLng(37.582414, 127.009299), // 한성대학교
-            level: 4
+            center: new kakao.maps.LatLng(37.582414, 127.009299), // 디폴트 위치 - 한성대학교
+            level: 3
         };
 
     // 지도를 생성
     var map = new kakao.maps.Map(mapContainer, mapOption);
+    map.setDraggable(false);
+    map.setZoomable(false);
 
-    var imageSrc = '/img/petMapMarker.png', // 마커이미지의 주소입니다
-        imageSize = new kakao.maps.Size(60, 60), // 마커이미지의 크기입니다
-        imageOption = {offset: new kakao.maps.Point(27, 60)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+    var imageSrc = '/img/petMapMarker.png', // 마커이미지의 주소
+        imageSize = new kakao.maps.Size(60, 60), // 마커이미지의 크기
+        imageOption = {offset: new kakao.maps.Point(27, 60)}; // 마커이미지의 옵션 - 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정
 
-    // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+    // 마커의 이미지정보를 가지고 있는 마커이미지 생성
     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 
     // 주소-좌표 변환 객체를 생성
     var geocoder = new kakao.maps.services.Geocoder();
 
-    // 주소로 좌표를 검색합니다
-    geocoder.addressSearch(userAddr, function(result, status) {
+    // 주소로 좌표를 검색합
+    geocoder.addressSearch(userAddr, function (result, status) {
 
         // 정상적으로 검색이 완료됐으면
         if (status === kakao.maps.services.Status.OK) {
 
             var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-            // 결과값으로 받은 위치를 마커로 표시합니다
+            // 결과값으로 받은 위치에 마커 생성
             var marker = new kakao.maps.Marker({
                 map: map,
                 position: coords,
                 image: markerImage,
-                level : 4
+                level: 3
             });
 
+            marker.setMap(map);
+
+            var content = '<div class="customoverlay">' +
+                '<button type="button" class="btn btn-info " data-toggle="modal" data-target="#petList"> ' +
+                '    <span class="title">우리 동네 반려견 찾아보기</span>' +
+                '</button>' +
+                '</div>';
+
+            // 커스텀 오버레이를 생성합니다
+            var customOverlay = new kakao.maps.CustomOverlay({
+                map: map,
+                position: coords,
+                content: content,
+                yAnchor: 1
+            });
             // 인포윈도우로 장소에 대한 설명을 표시합니다
+            /*
             var infowindow = new kakao.maps.InfoWindow({
                 content: '<div style="width:230px;text-align:center;padding:6px 0; margin: 3px; font-family: \'Nanum Gothic\', sans-serif; ">' +
                     '우리 동네를 기준으로 매칭해요!<br> 회원님의 동네는? <br>'
-                    + '<span style="font-weight: bold; font-size: 18px;">' + userAddr  + '</span>'
+                    + '<span style="font-weight: bold; font-size: 18px;">' + userAddrDong + '</span>'
                     + '</div>'
             });
             infowindow.open(map, marker);
-
+*/
             // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
             map.setCenter(coords);
         }

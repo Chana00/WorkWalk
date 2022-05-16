@@ -32,6 +32,7 @@ public class UserController {
 
     @PostMapping("/signup")
     public String signUpPost(@ModelAttribute("user") User user) {
+
             Role role = customUserService.findByRolename("USER");
             List<Role> userRoles = new ArrayList<>();
             userRoles.add(role);

@@ -1,14 +1,15 @@
 body {
-    background-color: #F7F7F7;
+    background-color: #f8f8f8;
 }
 
-.container{
-    border: #E5E5E5 solid 2px;
+.container {
+    border: #E5E5E5 solid 1px;
 }
 
-.container .row  {
+.container .row {
     height: 100vh;
 }
+
 #map {
 
 }
@@ -18,10 +19,107 @@ body {
 
 }
 
-#filter p {
+#filter p.title {
     text-align: center;
-    padding: 20px 0px;
+    padding-top: 20px;
+    padding-bottom: 5px;
     font-family: 'BM Dohyeon', sans-serif;
     font-size: 22px;
-    color : #815854;
+    color: #815854;
 }
+#filter p.desc {
+    text-align: center;
+}
+
+#filter p.desc span {
+    font-weight: bold; font-size: 18px;
+}
+
+#filter form {
+    padding: 10px;
+    border: 3px dotted #d0d0d0;
+    background-color: white;
+    border-radius: 8px;
+}
+
+#filter form button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.modal-puppy {
+    height: 130px;
+    border-bottom: #E5E5E5 solid 1px;
+    padding: 5px 10px 5px 5px;
+}
+
+.modal-puppy-img {
+    float: left; width: 30%;
+    margin-top : 10px;
+    margin-right: 10px;
+    height: 100px;
+    background-color: orange;
+}
+
+.modal-puppy-name {
+    float: left;
+    width: 40%;
+}
+
+.modal-puppy-gender {
+    float : left;
+    width: 40%;
+}
+
+.modal-puppy-kind b {
+
+    padding: 2px;
+    border : #F27121 solid 1px;
+    border-radius: 5px;
+}
+
+.modal-puppy-link {
+    color : #252525;
+    text-decoration: none;
+}
+
+.modal-puppy-link:visited {
+    color : #333333;
+    text-decoration: none;
+}
+
+.customoverlay {
+    position: relative;
+    bottom: 70px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    border-bottom: 2px solid #ddd;
+    float: left;
+}
+
+.customoverlay:nth-of-type(n) {
+    border: 0;
+    box-shadow: 0px 1px 2px #888;
+}
+
+.customoverlay button {
+    color: #F5F5F5;
+    text-align: center;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+    overflow: hidden;
+    background: #815854 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;
+}
+
+.customoverlay .title {
+    display: block;
+    text-align: center;
+    margin-right: 35px;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+

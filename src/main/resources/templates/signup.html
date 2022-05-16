@@ -64,19 +64,19 @@
     <h2> 회원가입 </h2>
     <br/>
     <div>
-        <form class="needs-validation" th:action="@{/users/signup}" th:object="${user}" method="POST">
+        <form class="needs-validation" id="join_form" th:action="@{/users/signup}" th:object="${user}" method="POST">
 
             <div class="mb-3">
-                <label class="text-danger">ID (필수입력) </label>
+                <label class="text-danger">ID </label>
                 <div class="input-group">
-                     <input type="text" class="form-control" placeholder="아이디" th:field="*{memberId}">
+                     <input type="text" class="form-control" placeholder="아이디" th:field="*{memberId}" id="memberId">
                 </div>
             </div>
 
             <div class="mb-3">
-                <label class="text-danger">PASSWORD (필수입력) </label>
+                <label class="text-danger">PASSWORD </label>
                 <div class="input-group">
-                    <input type="password" class="form-control" placeholder="비밀번호" th:field="*{password}">
+                    <input type="password" class="form-control" placeholder="비밀번호" th:field="*{password}" id="pwd">
                 </div>
             </div>
             <hr>
@@ -86,14 +86,14 @@
             <div class="mb-3">
                 <label class="text-info">이름 </label>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="이름(실명)" th:field="*{name}">
+                    <input type="text" class="form-control" placeholder="이름(실명)" th:field="*{name}" id="u_name">
                 </div>
             </div>
 
             <div class="mb-3">
                 <label class="text-info">닉네임</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="사용할 닉네임" th:field="*{nickname}">
+                    <input type="text" class="form-control" placeholder="사용할 닉네임" th:field="*{nickname} " id="u_nickname">
                 </div>
             </div>
 
@@ -102,7 +102,7 @@
                 <input class="findAddrBtn" type="button" onclick="findAddr()" value="주소찾기"><br>
                 <div class="input-group" style="margin-bottom: 5px">
                     <input type="text" class="form-control" placeholder="우편번호" th:field="*{zipcode}" style="width: 20%" readonly>
-                    <input type="text" class="form-control" placeholder="도로명주소" th:field="*{address}"style="width: 80%" readonly>
+                    <input type="text" class="form-control" placeholder="주소" th:field="*{address}" style="width: 80%" readonly>
 
                 </div>
 
@@ -113,17 +113,22 @@
             </div>
 
 
-            <div class="mb-3">
-                <label class="text-info">연락처</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="전화번호" th:field="*{phone}">
+            <div>
+                <label class="text-info">성별</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type='radio' th:field="*{sex}" value='F' id="genderCheck01" th:checked/>
+                    <label class="form-check-label" for="genderCheck01" > 여성 </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type='radio' th:field="*{sex}" value='M' id="genderCheck02"/>
+                    <label class="form-check-label" for="genderCheck02"> 남성 </label>
                 </div>
             </div>
 
             <div class="mb-3">
-                <label class="text-info">성별</label>
+                <label class="text-info">연락처</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="성별" th:field="*{sex}">
+                    <input type="text" class="form-control" placeholder="전화번호" th:field="*{phone}">
                 </div>
             </div>
 
@@ -133,23 +138,42 @@
                     <input type="date" class="form-control" placeholder="생년월일" th:field="*{birth}">
                 </div>
             </div>
-            <div class="mb-3">
-                <label class="text-info">자격증 유무</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="자격증" th:field="*{license}">
+
+            <div class="col-mb-6">
+                <label class="text-info">자격증 유무</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type='radio' th:field="*{license}" value='N'
+                           id="licenseCheck01"
+                           checked/>
+                    <label class="form-check-label" for="licenseCheck01"> 자격증 없음 </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type='radio' th:field="*{license}" value='Y'
+                           id="licenseCheck02"
+                           checked/>
+                    <label class="form-check-label" for="licenseCheck02"> 자격증 있음 </label>
                 </div>
             </div>
 
-            <div class="mb-3">
-                <label class="text-info">경험 유무</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="경험" th:field="*{exp}">
+            <div class="col-mb-6">
+                <label class="text-info">산책경험 유무</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type='radio' th:field="*{exp}" value='N'
+                           id="expCheck01"
+                           checked/>
+                    <label class="form-check-label" for="expCheck01"> 경험 없음 </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type='radio' th:field="*{exp}" value='Y'
+                           id="expCheck02"
+                           checked/>
+                    <label class="form-check-label" for="expCheck02"> 경험 있음 </label>
                 </div>
             </div>
 
             <br><br>
             <div style="text-align: center">
-            <button type="submit" class="btn btn-primary" style="text-align: center;">다음으로</button>
+            <button type="button" class="btn btn-primary" style="text-align: center;" onclick="join_check()">회원가입</button>
             </div>
         </form>
     </div>
@@ -161,6 +185,44 @@
 
 </body>
 <script>
+    function join_check() {
+        var joinform = document.getElementById("join_form");
+        var uid = document.getElementById("memberId");
+        var pwd = document.getElementById("pwd");
+        var name = document.getElementById("u_name");
+        var nickname = document.getElementById("u_nickname");
+
+
+        if(!uid.value){
+            alert("아이디를 입력하세요");
+            return false;
+        }
+
+        if(!pwd.value){
+            alert("비밀번호를 입력하세요");
+            return false;
+        }
+
+        if(!name.value){
+            alert("이름을 입력하세요");
+            return false;
+        }
+
+        if(!nickname.value){
+            alert("닉네임을 입력하세요");
+            return false;
+        }
+
+        uid.value.trim();
+        pwd.value.trim();
+        name.value.trim();
+        nickname.value.trim();
+
+
+        alert("회원가입이 완료되었습니다!");
+        joinform.submit();
+    }
+
     function findAddr() {
         new daum.Postcode({
             oncomplete: function (data) {
@@ -175,10 +237,21 @@
                     addr = data.jibunAddress;
                 }
 
-                searchAddr = data.jibunAddress.split("동 ")[0].concat("동");
+                // 동 읍 면 분리
+                //searchAddr = data.jibunAddress.split("동 ")[0].concat("동");
+                console.log("동/읍/면 분리 시작")
+                if(data.jibunAddress.indexOf("동 ") >= 0) {
+                    searchAddr = data.jibunAddress.split("동 ")[0].concat("동");
+                }
+                else if(data.jibunAddress.indexOf("읍 ") >= 0) {
+                    searchAddr = data.jibunAddress.split("읍 ")[0].concat("읍");
+                }
+                else if(data.jibunAddress.indexOf("면 ") >= 0) {
+                    searchAddr = data.jibunAddress.split("면 ")[0].concat("면");
+                }
 
+                console.log("동/읍/면 분리 끝 : " + searchAddr);
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-
                 document.getElementById('zipcode').value = data.zonecode;
                 document.getElementById("address").value = addr;
                 document.getElementById("searchAddress").value = searchAddr;
