@@ -31,7 +31,7 @@ public class MyPageController {
                 .orElseThrow(() -> new UsernameNotFoundException("ID not found"));
 
         model.addAttribute("pet", new Pet());
-        model.addAttribute("userInfo", user);
+        model.addAttribute("user", user);
         return "mypage";
     }
 
