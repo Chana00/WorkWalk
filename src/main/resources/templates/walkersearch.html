@@ -223,7 +223,7 @@
                             <span th:if="${puppy.vaccination == 'N'}" style="color:  #333">예방접종 미완료</span>
                         </div>
                         <div class="modal-puppy-kind"><b th:text="${puppy.kind}"></b></div>
-                        <a class="modal-puppy-link" href="#">게시글 보러가기</a>
+                        <a class="modal-puppy-link" th:href="@{/posts/work/list}">게시글 보러가기</a>
                     </div>
                 </div>
 

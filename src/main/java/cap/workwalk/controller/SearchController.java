@@ -31,12 +31,14 @@ public class SearchController {
         User user = userRepository.findByMemberId(principal.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("ID not found"));
 
-        List<User> sameAddressUserList = userRepository.findDongAddress(user.getSearchAddress());
+        //List<User> sameAddressUserList = userRepository.findDongAddress(user.getSearchAddress());
+
         List<Pet> sameAddressPetList = petRepository.findListByAddress(user.getSearchAddress());
+        System.out.println(" 같은동 펫 리스트 : " + sameAddressPetList);
 
         model.addAttribute("userAddrDong", user.getSearchAddress());
         model.addAttribute("userAddr", user.getAddress());
-        model.addAttribute("sameAddressUserList", sameAddressUserList);
+        //model.addAttribute("sameAddressUserList", sameAddressUserList);
         model.addAttribute("sameAddressPetList", sameAddressPetList);
         return "walkersearch";
     }

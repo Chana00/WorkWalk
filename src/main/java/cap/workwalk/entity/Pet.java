@@ -1,5 +1,6 @@
 package cap.workwalk.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,8 +14,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Pet {
     @Id
-    @GeneratedValue
     @Column(name="pet_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     //반려견 이름
@@ -45,12 +46,25 @@ public class Pet {
     private String personality;
     //이미지
     @Column
-    private String imgUrl;
-
+    private String img_url;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name="userId")
     private User user;
+
+
+    @Builder
+    public Pet(String name, String sex, String birth, String kind, String neutering, String vaccination, String personality, User user) {
+        this.name=name;
+        this.sex=sex;
+        this.birth=birth;
+        this.kind=kind;
+        this.neutering=neutering;
+        this.vaccination=vaccination;
+        this.personality=personality;
+        this.user=user;
+    }
+
 
 
 }

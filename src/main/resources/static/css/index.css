@@ -17,7 +17,7 @@ body {
 }
 
 .index-main .layer {
-    background-color: rgba(0,0,0, 0.1);
+    background-color: rgba(0,0,0, 0.2);
     position: absolute;
     left: 50%;
     transform: translate(-50%);
@@ -47,19 +47,19 @@ body {
     position: absolute;
     bottom: 50px;
     right: -20px;
-    height: 600px;
+    height: 500px;
 }
 .index-main .main_dog2 {
     position: absolute;
     bottom: 0px;
     right: 50px;
-    height: 400px;
+    height: 350px;
 }
 .index-main .main_dog3 {
     position: absolute;
-    left: -100px;
+    left: -50px;
     bottom: 0;
-    height: 700px;
+    height: 600px;
 }
 
 .index-main .btn-walker {
@@ -101,7 +101,20 @@ body {
     color: #fff;
 }
 
+
+
 .btn.btn--reverse:hover {
     background-color: transparent;
-    color: #815854;
+    border-color: #fff;
+}
+.btn.btn--white {
+     background-color: #fff;
+     color: #815854;
+    border-color: #fff;
+ }
+
+.btn.btn--white:hover{
+    background-color: #815854;
+    color: #fff;
+    border-color: #815854;
 }

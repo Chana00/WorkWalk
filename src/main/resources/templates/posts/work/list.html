@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
           integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic:wght@400;700&display=swap"
@@ -51,25 +50,26 @@
         </ul>
     </div>
 </nav>
-<section class="index-main">
-<div class="inner">
-    <div class="layer">
-    </div>
-        <img src="/img/main/main-workwalk.png" alt="workwalk" class="title"/>
-    <p class="main-matching-text">반려견 산책 매칭 서비스</p>
-        <a th:href="@{/search/walker}" class="btn btn--reverse btn-walker">워커 찾으러 가기</a>
-        <div sec:authorize="isAnonymous()">
-            <a th:href="@{/users/login}" class="btn btn--white btn-login">로그인하기</a>
-        </div>
+<div class="container">
+    <table class="table table-hover">
+        <a th:href="@{/posts/work/write}">글쓰기</a>
 
-        <img src="/img/main/main-dog1.png" class="main_dog1"/>
-        <img src="/img/main/main-dog2.png" class="main_dog2"/>
-        <img src="/img/main/main-dog3.png" class="main_dog3"/>
-
-
+        <thread>
+            <th>동네</th>
+            <th>작성자</th>
+            <th>내용</th>
+            <th>상태</th>
+        </thread>
+        <tr th:each="list : ${worklist}">
+            <td th:text="${list.user.address}"></td>
+            <td th:text="${list.user.nickname}"></td>
+            <td>
+                <a th:href="@{'/posts/'+ ${list.posttype} + '/'+ ${list.id}}">
+                    <span th:text="${list.content}"></span></a></td>
+            <td th:text="${list.status}"></td>
+        </tr>
+        </tr>
+    </table>
 </div>
-
-
-</section>
 </body>
 </html>

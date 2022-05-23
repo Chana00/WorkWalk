@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+닉네임 : <span th:text="${user.nickname}"></span></br>
+전화번호 : <span th:text="${user.phone}"></span></br>
+주소 : <span th:text="${user.address}"></span></br>
+생일 : <span th:text="${user.birth}"></span></br>
+자격증 : <span th:text="${user.license}"></span></br>
+동네 : <span th:text="${user.address}"></span></br>
+<div class="container">
+    <table class="table", border="1">
+        <tr>
+            <th>이름</th>
+            <th>성격</th>
+            <th>견종</th>
+            <th>성별</th>
+            <th>중성화</th>
+            <th>예방접종</th>
+            <th>생일</th>
+        </tr>
+        <tr th:each="pet : ${petslist}">
+            <td th:text="${pet.name}"></td>
+            <td th:text="${pet.personality}"></td>
+            <td th:text="${pet.kind}"></td>
+            <td th:text="${pet.sex}"></td>
+            <td th:text="${pet.neutering}"></td>
+            <td th:text="${pet.vaccination}"></td>
+            <td th:text="${pet.birth}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/users/pet}">반려견 등록</a>
+</div>
+</body>
+</html>

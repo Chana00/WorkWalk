@@ -59,11 +59,13 @@
     <p class="main-matching-text">반려견 산책 매칭 서비스</p>
         <a th:href="@{/search/walker}" class="btn btn--reverse btn-walker">워커 찾으러 가기</a>
         <div sec:authorize="isAnonymous()">
-            <p><a th:href="@{/users/login}" class="btn btn-login">로그인하기</a></p>
+            <a th:href="@{/users/login}" class="btn btn--white btn-login">로그인하기</a>
         </div>
+
         <img src="/img/main/main-dog1.png" class="main_dog1"/>
         <img src="/img/main/main-dog2.png" class="main_dog2"/>
         <img src="/img/main/main-dog3.png" class="main_dog3"/>
+
 
 </div>
 

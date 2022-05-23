@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
           integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic:wght@400;700&display=swap"
@@ -51,25 +50,36 @@
         </ul>
     </div>
 </nav>
-<section class="index-main">
-<div class="inner">
-    <div class="layer">
-    </div>
-        <img src="/img/main/main-workwalk.png" alt="workwalk" class="title"/>
-    <p class="main-matching-text">반려견 산책 매칭 서비스</p>
-        <a th:href="@{/search/walker}" class="btn btn--reverse btn-walker">워커 찾으러 가기</a>
-        <div sec:authorize="isAnonymous()">
-            <a th:href="@{/users/login}" class="btn btn--white btn-login">로그인하기</a>
-        </div>
+작성자 아이디 : <span th:text="${userdetail.memberId}"/></br>
+작성자 닉네임 : <span th:text="${userdetail.nickname}"/></br>
+동네 : <span th:text="${userdetail.address}"></span></br>
+<table border="1">
+    <tr>
+        <th>이름</th>
+        <th>성격</th>
+        <th>견종</th>
+        <th>성별</th>
+        <th>중성화</th>
+        <th>예방접종</th>
+        <th>생일</th>
+    </tr>
+    <tr th:each="pet : ${petdetail}">
+        <td th:text="${pet.name}"></td>
+        <td th:text="${pet.personality}"></td>
+        <td th:text="${pet.kind}"></td>
+        <td th:text="${pet.sex}"></td>
+        <td th:text="${pet.neutering}"></td>
+        <td th:text="${pet.vaccination}"></td>
+        <td th:text="${pet.birth}"></td>
+    </tr>
+</table></br>
 
-        <img src="/img/main/main-dog1.png" class="main_dog1"/>
-        <img src="/img/main/main-dog2.png" class="main_dog2"/>
-        <img src="/img/main/main-dog3.png" class="main_dog3"/>
-
-
-</div>
-
-
-</section>
+<form th:action="@{/posts/write}" method="post">
+    <input type="hidden" name="posttype" th:value="${'work'}"/>
+    <input type="hidden" name="status" th:value="${'ing...'}"/>
+    <input type="hidden" name="user" th:value="${userdetail.id}"/>
+    <textarea name="content"></textarea><br>
+    <input type="submit" value="등록"/>
+</form>
 </body>
 </html>
