@@ -3,8 +3,10 @@ package cap.workwalk.controller;
 import cap.workwalk.entity.Pet;
 import cap.workwalk.entity.Role;
 import cap.workwalk.entity.User;
+import cap.workwalk.repository.UserRepository;
 import cap.workwalk.service.CustomUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +22,16 @@ public class MyPageController {
     @Autowired
     CustomUserService customUserService;
 
+    @Autowired
+    UserRepository userRepository;
+
     @GetMapping("/mypage")
-    public String signUp(Model model) {
+    public String signUp(Model model, Principal principal) {
+        User user = userRepository.findByMemberId(principal.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("ID not found"));
+
         model.addAttribute("pet", new Pet());
+        model.addAttribute("userInfo", user);
         return "mypage";
     }
 

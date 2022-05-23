@@ -1,0 +1,107 @@
+body {
+    background-image: url("/img/main/main-back2.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.index-main {
+
+}
+
+
+.index-main .inner {
+    height: 800px;
+
+}
+
+.index-main .layer {
+    background-color: rgba(0,0,0, 0.1);
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+
+    width: 400px;
+    height: 500px;
+}
+
+.index-main .title {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.index-main .main-matching-text {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    top: 280px;
+    font-size: 26px;
+    font-family: 'Nanum Gothic', sans-serif;
+    color: #f8f8f8;
+    text-shadow: 1px 1px 3px #333 ;
+}
+.index-main .main_dog1 {
+    position: absolute;
+    bottom: 50px;
+    right: -20px;
+    height: 600px;
+}
+.index-main .main_dog2 {
+    position: absolute;
+    bottom: 0px;
+    right: 50px;
+    height: 400px;
+}
+.index-main .main_dog3 {
+    position: absolute;
+    left: -100px;
+    bottom: 0;
+    height: 700px;
+}
+
+.index-main .btn-walker {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    top : 325px;
+}
+
+.index-main .btn-login {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    top : 380px;
+}
+
+.index-main .btn {
+    width: 150px;
+    padding: 10px;
+    border: 2px solid #815854;
+    border-radius: 4px;
+    color: #815854;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Nanum Gothic', sans-serif;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: block;
+    transition: .3s;
+}
+
+.index-main .btn:hover {
+    background-color: #815854;
+    color: #fff;
+}
+
+.btn.btn--reverse {
+    background-color: #815854;
+    color: #fff;
+}
+
+.btn.btn--reverse:hover {
+    background-color: transparent;
+    color: #815854;
+}

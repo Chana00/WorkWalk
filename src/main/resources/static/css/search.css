@@ -62,6 +62,7 @@ body {
 }
 
 .modal-puppy-name {
+    font-weight: bold;
     float: left;
     width: 40%;
 }

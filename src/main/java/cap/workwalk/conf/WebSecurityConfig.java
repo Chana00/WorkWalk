@@ -41,14 +41,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/users/login", "/users/signup").permitAll()
-                .antMatchers("/home, /search/*", "/mypage").hasRole("USER")
+                .antMatchers("/home, /search/**", "/mypage").hasRole("USER")
                 .antMatchers("/admin/**").hasRole("ADMIN")  // ADMIN 접근 허용
                 .anyRequest().authenticated()   // 나머지 요청들 종류에 상관없이 권한이 있어야 접근 허용
 
                 .and()
                     .formLogin()
                         .loginPage("/users/login")         //로그인페이지
-                        .defaultSuccessUrl("/home")  //로그인 성공후 리다이렉트 주소
+                        .defaultSuccessUrl("/")  //로그인 성공후 리다이렉트 주소
                         .failureUrl("/users/login?error")         //로그인 에러 페이지
                         .permitAll()
                 .and()

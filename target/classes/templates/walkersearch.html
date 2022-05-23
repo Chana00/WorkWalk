@@ -192,11 +192,13 @@
 
 
 <!-- Modal - 반려견 목록 -->
-<div class="modal fade" id="petList" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="petList" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">우리동네 반려견 : <span th:text="${sameAddressPetList.size()}"></span> 퍼피</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">우리동네 반려견 : <span
+                        th:text="${sameAddressPetList.size()}"></span> 퍼피</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -204,13 +206,23 @@
             <div class="modal-body">
                 <div th:each="puppy : ${sameAddressPetList}">
                     <div class="modal-puppy">
-                        <div class="modal-puppy-img" >사진</div>
-                        <div class="modal-puppy-name" >이름 : <span th:text="${puppy.name}"></span></div>
-                        <div class="modal-puppy-gender">
-                         <span th:if="${puppy.sex == 'F'}" style="color: #f80759">여아</span>
-                         <span th:if="${puppy.sex == 'M'}" style="color: #4286f4">남아</span>
+                        <div class="modal-puppy-img">
+                            <img class="card-img-top" src="/img/default_pet.png" style="height: 100%; width: 100%">
                         </div>
-                        <div class="modal-puppy-kind"> <b th:text="${puppy.kind}"></b></div>
+                        <div class="modal-puppy-name"><span th:text="${puppy.name}"></span></div>
+                        <div class="modal-puppy-gender">
+                            <span th:if="${puppy.sex == 'F'}" style="color: #f80759">여아</span>
+                            <span th:if="${puppy.sex == 'M'}" style="color: #4286f4">남아</span>
+                        </div>
+                        <div class="modal-puppy-neutering">
+                            <span th:if="${puppy.neutering == 'Y'}" style="color:  #F27121">중성화 완료</span>
+                            <span th:if="${puppy.neutering == 'N'}" style="color:  #F27121">중성화 전</span>
+                        </div>
+                        <div class="modal-puppy-vaccination">
+                            <span th:if="${puppy.vaccination == 'Y'}" style="color:  #4286f4">예방접종 완료</span>
+                            <span th:if="${puppy.vaccination == 'N'}" style="color:  #333">예방접종 미완료</span>
+                        </div>
+                        <div class="modal-puppy-kind"><b th:text="${puppy.kind}"></b></div>
                         <a class="modal-puppy-link" href="#">게시글 보러가기</a>
                     </div>
                 </div>
