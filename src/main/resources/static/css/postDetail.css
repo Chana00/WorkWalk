@@ -1,0 +1,8 @@
+.btn-cus.btn-cus--reverse:hover {
+    color: #815854;
+    border-color: #815854;
+}
+
+.btn-cus{
+    width: 90px;
+}

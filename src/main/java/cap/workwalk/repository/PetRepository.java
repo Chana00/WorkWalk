@@ -17,6 +17,6 @@ public interface PetRepository extends JpaRepository<Pet, Integer> {
     @Query(nativeQuery = true, value =
             "SELECT distinct pet.* " +
                     "FROM pet, users " +
-                    "WHERE users.search_address = :searchAddress ")
+                    "WHERE pet.user_id = users.id and users.search_address = :searchAddress ")
     List<Pet> findListByAddress(String searchAddress);
 }

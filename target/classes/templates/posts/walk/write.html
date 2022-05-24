@@ -51,6 +51,7 @@
   </div>
 </nav>
 
+<div class="inner">
 <p 작성자 아이디 : th:text="${userdetail.memberId}"/>
 <div th:text="${userdetail.nickname}"></div>
 <p>동네 : <div th:text="${userdetail.address}"></div></p></br>
@@ -84,5 +85,6 @@
   <textarea name="content"></textarea><br>
   <input type="submit" value="등록"/>
 </form>
+</div>
 </body>
 </html>

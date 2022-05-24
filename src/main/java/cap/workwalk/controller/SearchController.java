@@ -4,15 +4,11 @@ import cap.workwalk.entity.Pet;
 import cap.workwalk.entity.User;
 import cap.workwalk.repository.PetRepository;
 import cap.workwalk.repository.UserRepository;
-import cap.workwalk.service.CustomUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
 import java.util.List;
@@ -40,7 +36,7 @@ public class SearchController {
         model.addAttribute("userAddr", user.getAddress());
         //model.addAttribute("sameAddressUserList", sameAddressUserList);
         model.addAttribute("sameAddressPetList", sameAddressPetList);
-        return "walkersearch";
+        return "searchs/walkersearch";
     }
 
 

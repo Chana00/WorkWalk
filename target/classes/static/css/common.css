@@ -13,5 +13,50 @@ body {
     position: relative;
 }
 
+.btn-cus {
+    width: 150px;
+    padding: 10px;
+    border: 2px solid #815854;
+    border-radius: 4px;
+    color: #815854;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Nanum Gothic', sans-serif;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: block;
+    text-align: center;
+    transition: .3s;
+}
+
+
+.btn-cus:hover {
+    background-color: #815854;
+    color: #fff;
+}
+
+.btn-cus.btn-cus--reverse {
+    background-color: #815854;
+    color: #fff;
+}
+
+
+
+.btn-cus.btn-cus--reverse:hover {
+    background-color: transparent;
+    border-color: #fff;
+}
+.btn-cus.btn-cus--white {
+    background-color: #fff;
+    color: #815854;
+    border-color: #fff;
+}
+
+.btn-cus.btn-cus--white:hover{
+    background-color: #815854;
+    color: #fff;
+    border-color: #815854;
+}
+
 
 

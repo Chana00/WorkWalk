@@ -31,3 +31,17 @@ body {
     font-size: 20px;
     font-family: 'BM Dohyeon', sans-serif;
 }
+
+.inner .myinfo-desc {
+    width: 25%;
+    float: left;
+    padding: 5px;
+    font-weight: bold;
+}
+
+.inner .myinfo-db {
+    width: 75%;
+    float: left;
+    border-left: #333 solid 1px;
+    padding: 5px;
+}

@@ -1,34 +1,129 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>게시글 상세보기</title>
-</head>
-<body>
-작성자 아이디 : <span th:text="${postdetail.user.nickname}"></span></br>
-작성자 동네 : <span th:text="${postdetail.user.address}"></span></br>
-작성자 성별 : <span th:text="${postdetail.user.sex}"></span></br>
-내용 : <span th:text="${postdetail.content}"></span></br>
-상태 : <span th:text="${postdetail.status}"></span></br>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<div th:if="${not #lists.isEmpty(postdetail.user.pets)}">
-<table border="1">
-    <tr th:each="pet : ${postdetail.user.pets}">
-    <td th:text="${pet.name}"></td>
-    <td th:text="${pet.personality}"></td>
-    <td th:text="${pet.kind}"></td>
-    <td th:text="${pet.sex}"></td>
-    <td th:text="${pet.neutering}"></td>
-    <td th:text="${pet.vaccination}"></td>
-    <td th:text="${pet.birth}"></td>
-</tr>
-</table>
-</div></br>
-<div th:if="${postdetail.user.id == userdetail.id}">
-    <a th:href="@{'/posts/'+ ${postdetail.posttype} + '/edit/' + ${postdetail.id}}">
-        <button>수정</button></a>
-        <button>삭제</button></a>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/postDetail.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic:wght@400;700&display=swap"
+          rel="stylesheet">
+    <title>WorkWalk</title>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFF4EC;">
+    <a class="navbar-brand" th:href="@{/}" style="font-family: 'Do Hyeon', sans-serif;  color: #815854;">
+        <img src="/img/WolkWalk-logo.png" width="30" height="30" alt="">
+        WorkWalk</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="nav navbar-nav  mr-auto navbar-right ">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/search/walker}">워커찾기</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">채팅목록</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/mypage}">마이페이지</a>
+            </li>
+            <li class="nav-item">
+                <div sec:authorize="isAuthenticated()">
+                    <a class="nav-link text-danger" th:href="@{/users/logout}">로그아웃</a>
+                </div>
+                <div sec:authorize="isAnonymous()">
+                    <a class="nav-link text-info" th:href="@{/users/login}">로그인</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="inner">
+    <div class="container mt-3">
+        <h2 style="color:#815854;">게시글 상세보기</h2>
+        <br>
+        <div class="media border p-3">
+            <img src="/img/default_user.png" alt="사용자 이미지" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+            <div class="media-body">
+                <h4>
+                    [[${postdetail.user.nickname}]]
+                    <small>
+                        <i style="font-size: 14px">[[${postdetail.user.searchAddress}]]</i>
+                    </small>
+                        <small style="font-size: 14px">
+                            <span th:if="${postdetail.user.sex == 'F'}" style="color: #f80759">여성</span>
+                            <span th:if="${postdetail.user.sex == 'M'}" style="color: #4286f4">남성</span>
+                        </small>
+                </h4>
+                <p>게시글 상태 | [[${postdetail.status}]]</p>
+                내용
+                <div class="border p-5" style="background-color: #FFF; font-size: 16px; font-family: 'Nanum Gothic', sans-serif;">
+                    [[${postdetail.content}]]
+                </div>
+                </br>
+                <div th:if="${not #lists.isEmpty(postdetail.user.pets)}">
+                    <h5 style="color: #815854">반려견 리스트</h5>
+                    <table class="table" style="text-align: center">
+                        <thead class="thead-dark" >
+                        <tr>
+                            <th>이름</th>
+                            <th>성격</th>
+                            <th>종류</th>
+                            <th>성별</th>
+                            <th>중성화</th>
+                            <th>예방접종</th>
+                            <th>생일</th>
+                        </tr>
+                        </thead >
+                        <tbody>
+                        <tr th:each="pet : ${postdetail.user.pets}">
+                            <td th:text="${pet.name}"></td>
+                            <td th:text="${pet.personality}"></td>
+                            <td th:text="${pet.kind}"></td>
+
+                            <td th:if="${pet.sex == 'F'}">여아</td>
+                            <td th:if="${pet.sex == 'M'}">남아</td>
+                            <td th:text="${pet.neutering}"></td>
+                            <td th:text="${pet.vaccination}"></td>
+                            <td th:text="${pet.birth}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+            </div>
+
+        </div>
+    </div>
+
+
 </div>
-</table>
+    <div style="float: right; margin: 10px;">
+        <div th:if="${postdetail.user.id == userdetail.id}" style="display: inline">
+            <a th:href="@{'/posts/'+ ${postdetail.posttype} + '/edit/' + ${postdetail.id}}">
+                <button class="btn-cus" style="display: inline;">수정</button></a>
+            <button class="btn-cus" style="display: inline;">삭제</button></a>
+        </div>
+        <button class="btn-cus btn-cus--reverse" style="display: inline;" onclick="if(!confirm('정말 예약하시겠습니까?')){return false}">
+            예약하기</button>
+        <button class="btn-cus btn-cus--reverse" style="display: inline;">1:1채팅</button>
+    </div>
+
+</div>
 </body>
+
+<script>
+
+</script>
 </html>

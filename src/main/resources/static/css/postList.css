@@ -1,0 +1,29 @@
+body {
+    background-color: #FCFCFC;
+}
+
+.inner {
+    background-color: #FAFAFA;
+}
+
+.btn-write {
+    width: 70px;
+    padding: 5px;
+    border: 2px solid #815854;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #815854;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Nanum Gothic', sans-serif;
+    cursor: pointer;
+    box-sizing: border-box;
+    text-align: center;
+    display: block;
+    margin: 5px 0px;
+}
+
+.btn-write:hover {
+    text-decoration: none;
+    color: #ffffff;
+}
