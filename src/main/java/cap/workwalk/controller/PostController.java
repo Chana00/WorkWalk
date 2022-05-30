@@ -3,6 +3,7 @@ package cap.workwalk.controller;
 
 import cap.workwalk.adapter.UserDetailsAdapter;
 import cap.workwalk.dto.PostDto;
+import cap.workwalk.entity.Post;
 import cap.workwalk.repository.PetRepository;
 import cap.workwalk.repository.PostRepository;
 import cap.workwalk.service.PostService;
@@ -41,7 +42,7 @@ public class PostController {
     }
 
 
-    @GetMapping("/{posttype}/write") //로그인 된 user 데이터를 게시글 작성시 자동으로 불러오기
+    @GetMapping("/{posttype}/write") //게시글 작성 (로그인 된 user 데이터를 게시글 작성시 자동으로 불러오기)
     public String Write(@PathVariable String posttype, @AuthenticationPrincipal UserDetailsAdapter userDetailsAdapter, Model model) {
         if(userDetailsAdapter != null) {
             model.addAttribute("userdetail",userDetailsAdapter.getUser());
@@ -77,9 +78,20 @@ public class PostController {
         return "posts/edit";
     }
 
-    @PostMapping("/{posttype}/edit")
+    @PostMapping("/{posttype}/edit") //게시글 수정 후 등록
     public String Update(PostDto postDto) {
         postService.savePost(postDto);
+        if (Objects.equals(postDto.getPosttype(), "work")) {
+            return "redirect:/posts/work/list";
+        } else if (Objects.equals(postDto.getPosttype(), "walk")) {
+            return "redirect:/posts/walk/list";
+        }
+        return "";
+    }
+
+    @DeleteMapping("/{posttype}/{id}")
+    public String Delete(@PathVariable String posttype, @PathVariable Integer id, PostDto postDto){
+        postService.deletePost(postDto);
         if (Objects.equals(postDto.getPosttype(), "work")) {
             return "redirect:/posts/work/list";
         } else if (Objects.equals(postDto.getPosttype(), "walk")) {

@@ -38,10 +38,10 @@ public class PostService {
         return post.get();
     }
 
-    /*@Transactional
-    public void deletePost(Integer id) {
-        postRepository.deleteById(id);
-    }*/
+    @Transactional
+    public void deletePost(PostDto postDto) {
+        postRepository.deleteById(postDto.toEntity().getId());
+    }
 
 }
 
