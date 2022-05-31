@@ -16,8 +16,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
+import java.security.Principal;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -80,7 +84,20 @@ public class CustomUserService implements UserDetailsService {
         return petRepository.save(pet).getId();
     }
 
+    public void profileImgSave(MultipartFile uploadImg, Principal principal) throws IOException {
+        User user = userRepository.findByMemberId(principal.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("ID not found"));
+        String ext = uploadImg.getOriginalFilename().substring(uploadImg.getOriginalFilename().lastIndexOf(".") + 1);   //확장자 구하기
+        //System.out.println("파일이 넘어왔습니다.. 확장자 : " + ext + " .. " + uploadImg.getOriginalFilename());
+        if(ext.equals("jpg") || ext.equals("png") || ext.equals("jpeg")) {
+            File newImg = new File(user.getName()+ "_profile." +ext);
+            uploadImg.transferTo(newImg);
+            user.setImgUrl(newImg.getName());
+            userRepository.save(user);
+            //System.out.println(user.getImgUrl() + "입니다");
+        }
 
+    }
 
 
 }

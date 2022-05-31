@@ -12,10 +12,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class MyPageController {
@@ -40,6 +46,18 @@ public class MyPageController {
         customUserService.registrationPet(principal.getName(), pet);
         System.out.println("새 반려견 등록... " +
                 pet.getName() + pet.getSex() + pet.getSize() + pet.getBirth() + pet.getKind());
+        return "redirect:/mypage";
+    }
+
+    @PostMapping("/mypage/upload")
+    public String mypageUploadPost(
+            @Valid @RequestParam("uploadImg") MultipartFile uploadImg, Principal principal, Model model)
+    throws IOException, IllegalArgumentException {
+        if(!uploadImg.isEmpty()) {
+            customUserService.profileImgSave(uploadImg, principal);
+
+        }
+
         return "redirect:/mypage";
     }
 

@@ -56,7 +56,8 @@
         <h2 style="color:#815854;">게시글 상세보기</h2>
         <br>
         <div class="media border p-3">
-            <img src="/img/default_user.png" alt="사용자 이미지" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+            <img src="/img/default_user.png" th:if="${postdetail.user.imgUrl == null}" alt="사용자 이미지" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+            <img th:src="'/img/userProfile/' +  ${postdetail.user.getImgUrl()}" th:if="${postdetail.user.imgUrl != null}" alt="사용자 이미지" class="mr-3 mt-3 rounded-circle" style="width:60px; height: 60px;">
             <div class="media-body">
                 <h4>
                     [[${postdetail.user.nickname}]]

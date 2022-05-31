@@ -64,47 +64,100 @@
     <h2>[ 내 정보 ]</h2>
     <br/>
 
+    <!-- 내 정보 -->
     <div class="row" style="">
         <div class="container">
-        <div class="card" style="float: left; width: 45%; margin-left: 30px;">
-            <img class="card-img-top" src="/img/default_user.png" alt="Card image" style="width:100%">
-            <div class="card-body">
-                <h4 class="card-title" ><span style="color: #4286f4">[[${user.nickname}]]</span> 님</h4>
-                <div>
-                    <div class="card-text myinfo-desc" >이름</div>
-                    <div class="card-text myinfo-db">[[${user.name}]]</div>
-                </div>
-                <div>
-                    <div class="card-text myinfo-desc" >생일</div>
-                    <div class="card-text myinfo-db">[[${user.birth}]]</div>
-                </div>
-                <div>
-                    <div class="card-text myinfo-desc" >전화번호</div>
-                    <div class="card-text myinfo-db">[[${user.phone}]]</div>
-                </div>
-                <div>
-                    <div class="card-text myinfo-desc" >주소</div>
-                    <div class="card-text myinfo-db">[[${user.address}]]</div>
+            <div class="card" style="float: left; width: 45%; margin-left: 30px;">
+
+                <img class="card-img-top" th:if="${user.imgUrl == null}" src="/img/default_user.png" alt="Card image" style="width:100%">
+                <img class="card-img-top" th:if="${user.imgUrl != null}" th:src="'/img/userProfile/' +  ${user.getImgUrl()}" alt="프로필사진" style="width:100%; height: 350px">
+                <div class="card-body">
+                    <h4 class="card-title"><span style="color: #4286f4">[[${user.nickname}]]</span> 님</h4>
+                    <div>
+                        <div class="card-text myinfo-desc">이름</div>
+                        <div class="card-text myinfo-db">[[${user.name}]]</div>
+                    </div>
+                    <div>
+                        <div class="card-text myinfo-desc">생일</div>
+                        <div class="card-text myinfo-db">[[${user.birth}]]</div>
+                    </div>
+                    <div>
+                        <div class="card-text myinfo-desc">전화번호</div>
+                        <div class="card-text myinfo-db">[[${user.phone}]]</div>
+                    </div>
+                    <div>
+                        <div class="card-text myinfo-desc">주소</div>
+                        <div class="card-text myinfo-db">[[${user.address}]]</div>
+                    </div>
+
+
                 </div>
 
+                <form id="ProfileImgForm" method="post" enctype="multipart/form-data" th:action="@{/mypage/upload}">
+                    <label class="fileBtnLabel btn-cus btn-cus--reverse" for="fileBtn">사진 업로드</label>
+                    <input id="fileBtn" type="file" name="uploadImg" multiple="multiple" style="display: none"/>
+                    <input class="subBtn btn-cus btn-cus--reverse" type="submit" value="적용"/>
+                </form>
+            </div>
+
+            <!-- 내 반려견 목록 -->
+            <div class="card" style="float: right; width: 45%; margin-right: 30px">
+                <div class="card-body">
+                    <h4 class="card-title">내 반려견들</h4>
+                    <div class="card-text">
+                        <table class="table" style="text-align: center">
+                            <thead class="thead" style="background-color: #815854; color: #fff;">
+                            <tr>
+                                <th>이름</th>
+                                <th>종류</th>
+                                <th>성별</th>
+                                <th>생일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="pet : ${user.pets}">
+                                <td th:text="${pet.name}"></td>
+                                <td th:text="${pet.kind}"></td>
+
+                                <td th:if="${pet.sex == 'F'}">여아</td>
+                                <td th:if="${pet.sex == 'M'}">남아</td>
+                                <td th:text="${pet.birth}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+                <img class="card-img-bottom" src="/img/default_pet.png" alt="pet profile" style="width:100%">
 
             </div>
-        </div>
 
-        <div class="card" style="float: right; width: 45%; margin-right: 30px">
-            <div class="card-body">
-                <h4 class="card-title">내 반려견들</h4>
-                <div class="card-text">
-                    강아지 정보 들어갈 자리
-                </div>
 
-            </div>
-            <img class="card-img-bottom" src="/img/default_pet.png" alt="pet profile" style="width:100%">
         </div>
     </div>
 
 
+
+    <!-- 예약 내역 -->
+    <div class="reservation">
+        <p style="color: #815854">예약 내역</p>
+        <table class="table" style="text-align: center">
+            <thead class="thead thead-dark">
+            <tr>
+                <th>Worker</th>
+                <th>Walker</th>
+                <th>예약 일자</th>
+                <th>완료 여부</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
     </div>
+
+    <!-- 반려견 등록 폼 -->
     <div class="pet-register">
         <p style="color: #815854">내 반려견 등록하기</p>
         <form class="needs-validation" id="petRegiForm" th:action="@{/mypage}" th:object="${pet}" method="POST">
@@ -198,14 +251,16 @@
             <div>
                 <label class="text-info">강아지 성격을 알려주세요</label>
                 <div class="input-group">
-                <textarea cols="100" rows="3" th:field="*{personality}"> </textarea>
+                    <textarea cols="100" rows="3" th:field="*{personality}"> </textarea>
                 </div>
             </div>
 
             <br><br>
 
             <div style="text-align: center">
-                <button type="submit" class="btn btn-primary" style="text-align: center;" onclick="if(!confirm('정말 등록하시겠습니까?')){return false}">반려견 등록</button>
+                <button type="submit" class="btn btn-primary" style="text-align: center;"
+                        onclick="if(!confirm('정말 등록하시겠습니까?')){return false}">반려견 등록
+                </button>
             </div>
         </form>
     </div>

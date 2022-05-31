@@ -19,6 +19,20 @@ body {
     margin: 5px;
 }
 
+.inner .reservation {
+    border: 2px solid #E5E5E5 ;
+    border-radius: 5px;
+    background-color: white;
+    padding: 15px 20px;
+    margin: 10px 10px 10px 20px;
+}
+
+.inner .reservation p {
+    font-size: 20px;
+    font-family: 'BM Dohyeon', sans-serif;
+}
+
+
 .inner .pet-register {
     border: 2px solid #E5E5E5 ;
     border-radius: 5px;
@@ -45,3 +59,30 @@ body {
     border-left: #333 solid 1px;
     padding: 5px;
 }
+
+#ProfileImgForm .fileBtnLabel {
+    margin: 10px;
+    padding: 3px;
+    width: 70px;
+    font-size: 12px;
+    float: left;
+}
+
+#ProfileImgForm .fileBtnLabel:hover {
+    color: #815854;
+    border-color: #815854;
+}
+
+#ProfileImgForm .subBtn{
+    margin: 10px;
+    padding: 3px;
+    width: 50px;
+    font-size: 12px;
+    float: right;
+}
+
+#ProfileImgForm .subBtn:hover{
+    color: #815854;
+    border-color: #815854;
+}
+
