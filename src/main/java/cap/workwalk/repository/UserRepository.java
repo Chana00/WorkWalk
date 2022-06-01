@@ -13,10 +13,10 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 
     // 같은 주소를 가지고있는 유저리스트 검색
     @Query(nativeQuery = true, value =
-                "SELECT * " +
-                "FROM users " +
-                "WHERE search_address = :searchAddress ")
-    List<User> findDongAddress(String searchAddress);
+            "SELECT distinct users.* " +
+                    "FROM pet, users " +
+                    "WHERE pet.user_id = users.id and users.search_address = :searchAddress ")
+    List<User> findListByAddress(String searchAddress);
 
 
 }

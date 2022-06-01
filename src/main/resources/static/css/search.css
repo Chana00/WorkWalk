@@ -123,4 +123,14 @@ body {
     font-weight: bold;
 }
 
+.subLink {
+    color: #815854;
+    float: right;
+    padding: 5px;
+}
+.subLink:hover {
+    text-decoration: none;
+    color: #333333;
+
+}
 

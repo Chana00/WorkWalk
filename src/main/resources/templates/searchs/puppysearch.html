@@ -68,21 +68,21 @@
     <div class="row">
         <div class="col-md-6" id="map"></div>
         <div class="col-md-6" id="filter">
-            <p class="title"> 워커 조건을 골라주세요 </p>
+            <p class="title"> 반려견 조건을 골라주세요 </p>
             <p class="desc">우리 동네를 기준으로 매칭해요!<br> 워커님의 동네는? <br>
                 <span>[[${userAddrDong}]]</span>
             </p>
             <form>
                 <div>
-                    <label class="text-info">워커 성별</label><br>
+                    <label class="text-info">반려견 성별</label><br>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type='radio' value='F' id="genderCheck01" name="gender"
                                checked/>
-                        <label class="form-check-label" for="genderCheck01"> 여성 </label>
+                        <label class="form-check-label" for="genderCheck01"> 여아 </label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type='radio' value='M' id="genderCheck02" name="gender"/>
-                        <label class="form-check-label" for="genderCheck02"> 남성 </label>
+                        <label class="form-check-label" for="genderCheck02"> 남아 </label>
                     </div>
 
                     <div class="form-check form-check-inline">
@@ -91,41 +91,56 @@
                     </div>
                 </div>
 
-
                 <div>
-                    <label class="text-info"> 워커 나이 </label>
-                    <div class="input-group">
-                        <input type="number" name="dogAgeMin" min="17" max="100" step="1" value="17"> &nbsp;세 ~ &nbsp;
-                        <input type="number" name="dogAgeMax" min="17" max="100" step="1" value="100"> &nbsp;세
+                    <label class="text-info">반려견 크기</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type='checkbox' value='S' id="sizeCheck01" name="size" checked/>
+                        <label class="form-check-label" for="sizeCheck01"> 소형견 </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type='checkbox' value='M' id="sizeCheck02" name="size"/>
+                        <label class="form-check-label" for="sizeCheck02"> 중형견 </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type='checkbox' value='L' id="sizeCheck03" name="size"/>
+                        <label class="form-check-label" for="sizeCheck03"> 대형견 </label>
                     </div>
                 </div>
 
                 <div>
-                    <label class="text-info">자격증 여부</label><br>
+                    <label class="text-info"> 반려견 나이 </label>
+                    <div class="input-group">
+                        <input type="number" name="dogAgeMin" min="0" max="30" step="1" value="0"> &nbsp;세 ~ &nbsp;
+                        <input type="number" name="dogAgeMax" min="0" max="30" step="1" value="30"> &nbsp;세
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-info">중성화 여부</label><br>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type='radio' value='N' id="neuteringCheck01" name="neutering"/>
-                        <label class="form-check-label" for="neuteringCheck01" checked> 자격증 없음 </label>
+                        <label class="form-check-label" for="neuteringCheck01" checked> 중성화 전 </label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type='radio' value='Y'
                                id="neuteringCheck02" name="neutering"/>
-                        <label class="form-check-label" for="neuteringCheck02"> 자격증 있음 </label>
+                        <label class="form-check-label" for="neuteringCheck02"> 중성화 완료 </label>
                     </div>
                 </div>
 
                 <div class="col-mb-6">
-                    <label class="text-info">산책 경험 여부</label><br>
+                    <label class="text-info">예방접종 여부</label><br>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type='radio' name="vaccination" value='N'
                                id="vaccinationCheck01"
                                checked/>
-                        <label class="form-check-label" for="vaccinationCheck01"> 경험 없음 </label>
+                        <label class="form-check-label" for="vaccinationCheck01"> 미접종 </label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type='radio' name="vaccination" value='Y'
                                id="vaccinationCheck02"
                                checked/>
-                        <label class="form-check-label" for="vaccinationCheck02"> 경험 있음 </label>
+                        <label class="form-check-label" for="vaccinationCheck02"> 접종 완료 </label>
                     </div>
                 </div>
 
@@ -173,51 +188,59 @@
             </form>
 
             <div>
-                <a class="subLink" th:href="@{/search/puppy}">같이 산책할 반려견을 찾고싶어요</a>
+                <a class="subLink" th:href="@{/search/walker}">반려견 산책 맡길 사람을 찾고싶어요</a>
             </div>
         </div>
+
+
     </div>
 </div>
 
 
-<!-- Modal - 워커 목록 -->
+<!-- Modal - 반려견 목록 -->
 <div class="modal fade" id="petList" data-backdrop="static" data-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">우리동네 워커 : <span
-                        th:text="${sameAddressUserList.size()}"></span> 명</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">우리동네 반려견 : <span
+                        th:text="${sameAddressPetList.size()}"></span> 퍼피</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <div th:each="user : ${sameAddressUserList}">
+                <div th:each="puppy : ${sameAddressPetList}">
                     <div class="modal-puppy">
                         <div class="modal-puppy-img">
-                            <img class="card-img-top" th:if="${user.imgUrl == null}" src="/img/default_user.png" alt="Card image" style="height: 100%; width: 100%">
-                            <img class="card-img-top" th:if="${user.imgUrl != null}" th:src="'/img/userProfile/' +  ${user.getImgUrl()}" alt="프로필사진" style="height: 100%; width: 100%">
-
-
+                            <img class="card-img-top" src="/img/default_pet.png" style="height: 100%; width: 100%">
                         </div>
-                        <div class="modal-puppy-name"><span th:text="${user.nickname}"></span></div>
+                        <div class="modal-puppy-name"><span th:text="${puppy.name}"></span></div>
                         <div class="modal-puppy-gender">
-                            <span th:if="${user.sex == 'F'}" style="color: #f80759">여성</span>
-                            <span th:if="${user.sex == 'M'}" style="color: #4286f4">남성</span>
+                            <span th:if="${puppy.sex == 'F'}" style="color: #f80759">여아</span>
+                            <span th:if="${puppy.sex == 'M'}" style="color: #4286f4">남아</span>
                         </div>
                         <div class="modal-puppy-neutering">
-                            <span th:if="${user.license == 'Y'}" style="color:  #F27121">자격증 O</span>
-                            <span th:if="${user.license == 'N'}" style="color:  #F27121">자격증 X</span>
+                            <span th:if="${puppy.neutering == 'Y'}" style="color:  #F27121">중성화 완료</span>
+                            <span th:if="${puppy.neutering == 'N'}" style="color:  #F27121">중성화 전</span>
                         </div>
                         <div class="modal-puppy-vaccination">
-                            <span th:if="${user.exp == 'Y'}" style="color:  #4286f4">산책경험 O</span>
-                            <span th:if="${user.exp == 'N'}" style="color:  #333">산책경험 X</span>
+                            <span th:if="${puppy.vaccination == 'Y'}" style="color:  #4286f4">예방접종 완료</span>
+                            <span th:if="${puppy.vaccination == 'N'}" style="color:  #333">예방접종 미완료</span>
                         </div>
-                        <a class="modal-puppy-link" th:href="@{/posts/walk/list}">게시글 보러가기</a>
+                        <div class="modal-puppy-kind"><b th:text="${puppy.kind}"></b></div>
+                        <a class="modal-puppy-link" th:href="@{/posts/work/list}">게시글 보러가기</a>
                     </div>
                 </div>
 
+                <!--
+                산책을 해줄 워커를 찾는 반려견 기준
+                <div th:each="puppy : ${sameAddressUserList}">
+                    <div>주인 : <span th:text="${puppy.nickname}"></span></div>
+                    <div>경험 : <span th:text="${puppy.license}"></span></div>
+                    <hr>
+                </div>
+                -->
 
             </div>
         </div>
@@ -270,7 +293,7 @@
 
             var content = '<div class="customoverlay">' +
                 '<button type="button" class="btn btn-info " data-toggle="modal" data-target="#petList"> ' +
-                '    <span class="title">우리 동네 워커 찾아보기</span>' +
+                '    <span class="title">우리 동네 반려견 찾아보기</span>' +
                 '</button>' +
                 '</div>';
 

@@ -22,8 +22,8 @@ public class SearchController {
     @Autowired
     private PetRepository petRepository;
 
-    @GetMapping("/search/walker")
-    public String signUp(Model model, Principal principal) {
+    @GetMapping("/search/puppy")
+    public String searchPuppy(Model model, Principal principal) {
         User user = userRepository.findByMemberId(principal.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("ID not found"));
 
@@ -36,6 +36,22 @@ public class SearchController {
         model.addAttribute("userAddr", user.getAddress());
         //model.addAttribute("sameAddressUserList", sameAddressUserList);
         model.addAttribute("sameAddressPetList", sameAddressPetList);
+        return "searchs/puppysearch";
+    }
+
+    @GetMapping("/search/walker")
+    public String searchWalker(Model model, Principal principal) {
+        User user = userRepository.findByMemberId(principal.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("ID not found"));
+
+
+        List<User> sameAddressUserList = userRepository.findListByAddress(user.getSearchAddress());
+        System.out.println(" 같은동 펫 리스트 : " + sameAddressUserList);
+
+        model.addAttribute("userAddrDong", user.getSearchAddress());
+        model.addAttribute("userAddr", user.getAddress());
+        //model.addAttribute("sameAddressUserList", sameAddressUserList);
+        model.addAttribute("sameAddressUserList", sameAddressUserList);
         return "searchs/walkersearch";
     }
 
