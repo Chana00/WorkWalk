@@ -53,4 +53,12 @@
   #### 2-4 ) 프로젝트 구조
   ![구조도](https://ifh.cc/g/Cb46tO.png)
 
+  #### 2-5 ) 프로젝트 적용 기술 및 구조
+  - 개발 환경 및 도구
+    - IntelliJ, Window, Photoshop, MySQL
 
+  - 개발 언어
+    - Java, HTML5, CSS, Java Script, SQL
+
+  - 적용 기술
+    - Spring Boot, REST API, Bootstrap
