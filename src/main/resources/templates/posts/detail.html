@@ -116,8 +116,15 @@
                 <button class="btn-cus" style="display: inline;">수정</button></a>
             <button class="btn-cus" style="display: inline;">삭제</button></a>
         </div>
-        <button class="btn-cus btn-cus--reverse" style="display: inline;" onclick="if(!confirm('정말 예약하시겠습니까?')){return false}">
-            예약하기</button>
+        <form th:action="@{/posts/reservation}" method="post"  th:object="${reservation}" style="float: right; margin-left: 5px;">
+            <input type="hidden" name="other_id" th:value="${postdetail.user.id}">
+            <input type="hidden" name="other_nickname" th:value="${postdetail.user.getNickname()}">
+            <input type="hidden" name="my_id" th:value="${userdetail.id}">
+            <input type="hidden" name="post_id" th:value="${postdetail.id}">
+            <button type="submit" class="btn-cus btn-cus--reverse" style="display: inline;" onclick="reserFunc()">
+                예약하기</button>
+        </form>
+
         <button class="btn-cus btn-cus--reverse" style="display: inline;">1:1채팅</button>
     </div>
 
@@ -125,6 +132,10 @@
 </body>
 
 <script>
+    function reserFunc() {
+        if(!confirm('정말 예약하시겠습니까?'))
+        {return false}
+    }
 
 </script>
 </html>

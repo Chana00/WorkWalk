@@ -46,7 +46,7 @@ public class SearchController {
 
 
         List<User> sameAddressUserList = userRepository.findListByAddress(user.getSearchAddress());
-        System.out.println(" 같은동 펫 리스트 : " + sameAddressUserList);
+        System.out.println(" 같은동 워커 리스트 : " + sameAddressUserList);
 
         model.addAttribute("userAddrDong", user.getSearchAddress());
         model.addAttribute("userAddr", user.getAddress());

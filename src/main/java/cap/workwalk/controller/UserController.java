@@ -51,14 +51,6 @@ public class UserController {
 
     }
 
-    @GetMapping("/mypage2") //마이페이지
-    public String mypage(@AuthenticationPrincipal UserDetailsAdapter userDetailsAdapter, Model model) {
-        if(userDetailsAdapter != null) {
-            model.addAttribute("user", userDetailsAdapter.getUser());
-            model.addAttribute("petslist", petRepository.findByUser(userDetailsAdapter.getUser()));
-        }
-        return "mypage2";
-    }
 
     @PostMapping("/pet") //반려견 등록
     public String save(@AuthenticationPrincipal UserDetailsAdapter userDetailsAdapter, PetDto petDto) {

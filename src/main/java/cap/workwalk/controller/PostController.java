@@ -3,6 +3,9 @@ package cap.workwalk.controller;
 
 import cap.workwalk.adapter.UserDetailsAdapter;
 import cap.workwalk.dto.PostDto;
+import cap.workwalk.entity.Pet;
+import cap.workwalk.entity.Reservation;
+import cap.workwalk.entity.User;
 import cap.workwalk.repository.PetRepository;
 import cap.workwalk.repository.PostRepository;
 import cap.workwalk.service.PostService;
@@ -68,6 +71,7 @@ public class PostController {
     public String Detail(@PathVariable String posttype, @PathVariable Integer id,@AuthenticationPrincipal UserDetailsAdapter userDetailsAdapter, Model model){
         model.addAttribute("postdetail", postRepository.findByPosttypeAndId(posttype,id));
         model.addAttribute("userdetail",userDetailsAdapter.getUser());
+        model.addAttribute("reservation", new Reservation());
         return "posts/detail";
     }
 
@@ -86,6 +90,13 @@ public class PostController {
             return "redirect:/posts/walk/list";
         }
         return "";
+    }
+
+    @PostMapping("/reservation")
+    public String userReservation(@ModelAttribute("reservation") Reservation newReservation){
+        System.out.println(newReservation.getMy_id() + " + " + newReservation.getPost_id() + " + " + newReservation.getOther_id());
+        postService.saveReservation(newReservation);
+        return "redirect:/mypage";
     }
 
 }

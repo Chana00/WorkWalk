@@ -78,7 +78,8 @@
 <form th:action="@{/posts/write}" method="post">
     <input type="hidden" name="posttype" th:value="${'work'}"/>
     <input type="hidden" name="status" th:value="${'ing...'}"/>
-    <input type="hidden" name="user" th:value="${userdetail.id}"/>
+    <input type="hidden" name="" th:value="${userdetail.id}"/>
+
     <textarea name="content"></textarea><br>
     <input type="submit" value="등록"/>
 </form>

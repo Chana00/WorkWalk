@@ -144,15 +144,20 @@
         <p style="color: #815854">예약 내역</p>
         <table class="table" style="text-align: center">
             <thead class="thead thead-dark">
-            <tr>
-                <th>Worker</th>
-                <th>Walker</th>
+            <tr >
+                <th>상대방 닉네임</th>
                 <th>예약 일자</th>
                 <th>완료 여부</th>
             </tr>
             </thead>
             <tbody>
-
+                <tr th:each="reser : ${reseList}">
+                    <td th:text="${reser.getOther_nickname()}"></td>
+                    <td th:text="${reser.getCreatedAt()}"></td>
+                    <td style="background-color: orange">[[${reser.getState()}]]
+                        <!--<button class="resEndBtn btn-cus btn-cus--reverse">완료</button> -->
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -265,5 +270,7 @@
         </form>
     </div>
 </div>
+
+
 </body>
 </html>

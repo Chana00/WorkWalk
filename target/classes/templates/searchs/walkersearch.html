@@ -199,7 +199,7 @@
                             <img class="card-img-top" th:if="${user.imgUrl == null}" src="/img/default_user.png" alt="Card image" style="height: 100%; width: 100%">
                             <img class="card-img-top" th:if="${user.imgUrl != null}" th:src="'/img/userProfile/' +  ${user.getImgUrl()}" alt="프로필사진" style="height: 100%; width: 100%">
 
-               
+
                         </div>
                         <div class="modal-puppy-name"><span th:text="${user.nickname}"></span></div>
                         <div class="modal-puppy-gender">
