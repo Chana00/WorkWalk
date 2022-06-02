@@ -48,9 +48,7 @@
 ```
 
   #### 2-3 ) 프로젝트 화면
-  ![로그인화면](https://ifh.cc/g/lG9ptY.jpg)
-  ![검색화면](https://ifh.cc/g/JZVmWg.jpg)
-  ![검색](https://ifh.cc/g/KJdhlM.jpg)
+  ![프로젝트화면모](https://ifh.cc/g/JcMR56.jpg)
   
   #### 2-4 ) 프로젝트 구조
   ![구조도](https://ifh.cc/g/Cb46tO.png)
