@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/postList.css">
     <link rel="stylesheet" href="/css/pagination.css">
+    <link rel="stylesheet" href="/css/messageTab.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic:wght@400;700&display=swap"
@@ -52,39 +53,51 @@
         </ul>
     </div>
 </nav>
-<div class="container inner">
-    <table class="table table-hover">
-        <a th:href="@{/posts/walk/write}" class="btn-write">글쓰기</a>
+<div class="container">
 
-        <thread>
-            <th>동네</th>
-            <th>작성자</th>
-            <th>내용</th>
-            <th>상태</th>
-            <th>자격증</th>
-        </thread>
-        <tr th:each="list : ${walklist}">
-            <td th:text="${list.user.searchAddress}"></td>
-            <td th:text="${list.user.nickname}"></td>
-            <td><a th:href="@{'/posts/'+ ${list.posttype} + '/'+ ${list.id}}">
-                <span th:text="${list.content}"></span></a></td>
-            <td th:text="${list.status}"></td>
-            <td th:text="${list.user.license}"></td>
-        </tr>
-    </table>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item" th:classappend="${1 == walklist.pageable.pageNumber + 1} ? 'disabled' : '' ">
-                <a class="page-link" th:href="@{/posts/walk/list/(page=${walklist.pageable.pageNumber - 1})}">Previous</a>
-            </li>
-            <li class="page-item" th:classappend="${i == walklist.pageable.pageNumber + 1} ? 'disabled' : '' " th:each="i : ${#numbers.sequence(startPage2, endPage2)}">
-                <a class="page-link" th:href="@{/posts/walk/list/(page=${i - 1})}" th:text="${i}">1</a>
-            </li>
-            <li class="page-item" th:classappend="${walklist.totalPages == walklist.pageable.pageNumber + 1} ? 'disabled' : '' ">
-                <a class="page-link" th:href="@{/posts/walk/list/(page=${walklist.pageable.pageNumber + 1})}">Next</a>
-            </li>
-        </ul>
-    </nav>
+    <div class="row">
+        <div class="col">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" style="color: #fff; background-color: #815854;"
+                       th:href="@{/message/list}">받은 쪽지함</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" style="color: #815854; background-color: #fff;"
+                       th:href="@{/message/sendList}">보낸 쪽지함</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="receive">
+                    <table class="table table-hover">
+                        <thread>
+                            <th>닉네임</th>
+                            <th>내용</th>
+                        </thread>
+                        <tr th:each="list : ${receivelist}">
+                            <td th:text="${list.send.nickname}"></td>
+                            <td><a th:href="@{'/message/detail/'+ ${list.id}}">
+                                <span th:text="${list.content}"></span></a></td>
+                        </tr>
+                    </table>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" th:classappend="${1 == receivelist.pageable.pageNumber + 1} ? 'disabled' : '' ">
+                                <a class="page-link" th:href="@{/message/list/(page=${receivelist.pageable.pageNumber - 1})}">Previous</a>
+                            </li>
+                            <li class="page-item" th:classappend="${i == receivelist.pageable.pageNumber + 1} ? 'disabled' : '' " th:each="i : ${#numbers.sequence(startPage, endPage)}">
+                                <a class="page-link" th:href="@{/message/list/(page=${i - 1})}" th:text="${i}">1</a>
+                            </li>
+                            <li class="page-item" th:classappend="${receivelist.totalPages == receivelist.pageable.pageNumber + 1} ? 'disabled' : '' ">
+                                <a class="page-link" th:href="@{/message/list/(page=${receivelist.pageable.pageNumber + 1})}">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 </body>
 </html>

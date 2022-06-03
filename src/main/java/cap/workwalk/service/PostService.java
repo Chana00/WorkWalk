@@ -9,6 +9,8 @@ import cap.workwalk.repository.PostRepository;
 import cap.workwalk.repository.ReservationRepository;
 import cap.workwalk.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -32,8 +34,8 @@ public class PostService {
     }
 
     @Transactional //user 테이블 fetch=FetchType.LAZY -> transactional 사용해서 데이터 불러오기
-    public List<Post> findByPosttype(String posttype) {
-        return postRepository.findByPosttype(posttype);
+    public Page<Post> findByPosttype(String posttype, Pageable pageable) {
+        return postRepository.findByPosttype(posttype, pageable);
     }
 
     @Transactional
@@ -51,10 +53,11 @@ public class PostService {
 
     }
 
-    /*@Transactional
-    public void deletePost(Integer id) {
-        postRepository.deleteById(id);
-    }*/
+
+    @Transactional
+    public void deletePost(PostDto postDto) {
+        postRepository.deleteById(postDto.toEntity().getId());
+    }
 
 }
 

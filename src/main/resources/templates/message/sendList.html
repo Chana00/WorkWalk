@@ -52,39 +52,50 @@
         </ul>
     </div>
 </nav>
-<div class="container inner">
-    <table class="table table-hover">
-        <a th:href="@{/posts/walk/write}" class="btn-write">글쓰기</a>
+<div class="container">
 
-        <thread>
-            <th>동네</th>
-            <th>작성자</th>
-            <th>내용</th>
-            <th>상태</th>
-            <th>자격증</th>
-        </thread>
-        <tr th:each="list : ${walklist}">
-            <td th:text="${list.user.searchAddress}"></td>
-            <td th:text="${list.user.nickname}"></td>
-            <td><a th:href="@{'/posts/'+ ${list.posttype} + '/'+ ${list.id}}">
-                <span th:text="${list.content}"></span></a></td>
-            <td th:text="${list.status}"></td>
-            <td th:text="${list.user.license}"></td>
-        </tr>
-    </table>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item" th:classappend="${1 == walklist.pageable.pageNumber + 1} ? 'disabled' : '' ">
-                <a class="page-link" th:href="@{/posts/walk/list/(page=${walklist.pageable.pageNumber - 1})}">Previous</a>
-            </li>
-            <li class="page-item" th:classappend="${i == walklist.pageable.pageNumber + 1} ? 'disabled' : '' " th:each="i : ${#numbers.sequence(startPage2, endPage2)}">
-                <a class="page-link" th:href="@{/posts/walk/list/(page=${i - 1})}" th:text="${i}">1</a>
-            </li>
-            <li class="page-item" th:classappend="${walklist.totalPages == walklist.pageable.pageNumber + 1} ? 'disabled' : '' ">
-                <a class="page-link" th:href="@{/posts/walk/list/(page=${walklist.pageable.pageNumber + 1})}">Next</a>
-            </li>
-        </ul>
-    </nav>
+    <div class="row">
+        <div class="col">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" style="color: #815854; background-color: #fff;"
+                       th:href="@{/message/list}">받은 쪽지함</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" style="color: #fff; background-color: #815854;"
+                       th:href="@{/message/sendList}">보낸 쪽지함</a>
+                </li>
+            </ul>
+            <div class="tab-pane fade show active" id="send">
+                    <table class="table table-hover">
+                        <thread>
+                            <th>닉네임</th>
+                            <th>내용</th>
+                        </thread>
+                        <tr th:each="list : ${sendlist}">
+                            <td th:text="${list.receive.nickname}"></td>
+                            <td><a th:href="@{'/message/detail/'+ ${list.id}}">
+                                <span th:text="${list.content}"></span></a></td>
+                        </tr>
+                    </table>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" th:classappend="${1 == sendlist.pageable.pageNumber + 1} ? 'disabled' : '' ">
+                                <a class="page-link" th:href="@{/message/sendList/(page=${sendlist.pageable.pageNumber - 1})}">Previous</a>
+                            </li>
+                            <li class="page-item" th:classappend="${i == sendlist.pageable.pageNumber + 1} ? 'disabled' : '' " th:each="i : ${#numbers.sequence(startPage, endPage)}">
+                                <a class="page-link" th:href="@{/message/sendList/(page=${i - 1})}" th:text="${i}">1</a>
+                            </li>
+                            <li class="page-item" th:classappend="${sendlist.totalPages == sendlist.pageable.pageNumber + 1} ? 'disabled' : '' ">
+                                <a class="page-link" th:href="@{/message/sendList/(page=${sendlist.pageable.pageNumber + 1})}">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 </body>
 </html>

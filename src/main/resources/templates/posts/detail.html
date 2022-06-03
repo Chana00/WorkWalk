@@ -35,7 +35,7 @@
                 <a class="nav-link" th:href="@{/search/puppy}">워커찾기</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">채팅목록</a>
+                <a class="nav-link" th:href="@{/message/list}">쪽지목록</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/mypage}">마이페이지</a>
@@ -124,8 +124,8 @@
             <button type="submit" class="btn-cus btn-cus--reverse" style="display: inline;" onclick="reserFunc()">
                 예약하기</button>
         </form>
-
-        <button class="btn-cus btn-cus--reverse" style="display: inline;">1:1채팅</button>
+        <a th:href="@{'/message/write/' + ${postdetail.id}}">
+            <button class="btn-cus btn-cus--reverse" style="display: inline;">쪽지보내기</button></a>
     </div>
 
 </div>

@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
           integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/postList.css">
-    <link rel="stylesheet" href="/css/pagination.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic:wght@400;700&display=swap"
@@ -52,39 +50,45 @@
         </ul>
     </div>
 </nav>
-<div class="container inner">
-    <table class="table table-hover">
-        <a th:href="@{/posts/walk/write}" class="btn-write">글쓰기</a>
 
-        <thread>
-            <th>동네</th>
-            <th>작성자</th>
-            <th>내용</th>
-            <th>상태</th>
-            <th>자격증</th>
-        </thread>
-        <tr th:each="list : ${walklist}">
-            <td th:text="${list.user.searchAddress}"></td>
-            <td th:text="${list.user.nickname}"></td>
-            <td><a th:href="@{'/posts/'+ ${list.posttype} + '/'+ ${list.id}}">
-                <span th:text="${list.content}"></span></a></td>
-            <td th:text="${list.status}"></td>
-            <td th:text="${list.user.license}"></td>
-        </tr>
-    </table>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item" th:classappend="${1 == walklist.pageable.pageNumber + 1} ? 'disabled' : '' ">
-                <a class="page-link" th:href="@{/posts/walk/list/(page=${walklist.pageable.pageNumber - 1})}">Previous</a>
-            </li>
-            <li class="page-item" th:classappend="${i == walklist.pageable.pageNumber + 1} ? 'disabled' : '' " th:each="i : ${#numbers.sequence(startPage2, endPage2)}">
-                <a class="page-link" th:href="@{/posts/walk/list/(page=${i - 1})}" th:text="${i}">1</a>
-            </li>
-            <li class="page-item" th:classappend="${walklist.totalPages == walklist.pageable.pageNumber + 1} ? 'disabled' : '' ">
-                <a class="page-link" th:href="@{/posts/walk/list/(page=${walklist.pageable.pageNumber + 1})}">Next</a>
-            </li>
-        </ul>
-    </nav>
-</div>
+<div class="container col-lg-6 " >
+
+    <div class="card" style="padding: 20px; border-radius: 15px; margin: 20px auto;">
+
+                <label>보낸 사람</label>
+                <div class="col-sm-12">
+                    <input type="text" th:value="${messagedetail.send.nickname}" readonly/>
+                </div><br>
+                <label>내용</label>
+                <div class="col-sm-12">
+                    <input type="text" class="form-control" style="height: 200px;"
+                              th:value="${messagedetail.content}" readonly/>
+                </div>
+            </div>
+
+
+    <div th:if="${messagedetail.send.id!=user.id}" style="display: inline">
+    <div class="card" style="padding: 20px; border-radius: 15px; margin: 20px auto;">
+        <span th:text="${messagedetail.send.nickname} + '님에게 답장 보내기'"></span><br>
+        <form th:action="@{/message/write}" th:method="post">
+            <div class="col-sm-12">
+            <textarea class="form-control" style="height: 100px;" name="content"></textarea><br>
+            </div>
+            <div class="btn_wrap text-center">
+                <a th:href="@{/message/list}">
+                    <button class="btn-cus" style="display: inline;">뒤로가기</button></a>
+                    <input type="hidden" name="send" th:value="${messagedetail.receive.id}">
+                    <input type="hidden" name="receive" th:value="${messagedetail.send.id}">
+                    <button class="btn-cus btn-cus--reverse" style="display: inline;">답장보내기</button>
+            </div></form>
+    </div>
+    </div>
+    <div th:if="${messagedetail.send.id==user.id}" style="display: inline">
+    <div class="btn_wrap text-center">
+        <a th:href="@{/message/list}">
+            <button class="btn-cus" style="display: inline;">뒤로가기</button></a>
+    </div>
+    </div>
+    </div>
 </body>
 </html>
