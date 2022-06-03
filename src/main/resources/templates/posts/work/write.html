@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
           integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/postDetail.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic:wght@400;700&display=swap"
@@ -50,39 +51,66 @@
         </ul>
     </div>
 </nav>
-<div class="inner">
-작성자 아이디 : <span th:text="${userdetail.memberId}"/></br>
-작성자 닉네임 : <span th:text="${userdetail.nickname}"/></br>
-동네 : <span th:text="${userdetail.address}"></span></br>
-<table border="1">
-    <tr>
-        <th>이름</th>
-        <th>성격</th>
-        <th>견종</th>
-        <th>성별</th>
-        <th>중성화</th>
-        <th>예방접종</th>
-        <th>생일</th>
-    </tr>
-    <tr th:each="pet : ${petdetail}">
-        <td th:text="${pet.name}"></td>
-        <td th:text="${pet.personality}"></td>
-        <td th:text="${pet.kind}"></td>
-        <td th:text="${pet.sex}"></td>
-        <td th:text="${pet.neutering}"></td>
-        <td th:text="${pet.vaccination}"></td>
-        <td th:text="${pet.birth}"></td>
-    </tr>
-</table></br>
 
-<form th:action="@{/posts/write}" method="post">
-    <input type="hidden" name="posttype" th:value="${'work'}"/>
-    <input type="hidden" name="status" th:value="${'ing...'}"/>
-    <input type="hidden" name="" th:value="${userdetail.id}"/>
+<div class="container col-lg-6 " >
 
-    <textarea name="content"></textarea><br>
-    <input type="submit" value="등록"/>
-</form>
+    <div class="card" style="padding: 20px; border-radius: 15px; margin: 20px auto;">
+        <form class=" form-horizontal" method="post" th:action="@{/posts/write}">
+
+            <div class="form-group">
+                <label style="color: #815854">작성자</label>
+                <div class="col-sm-12">
+                    <input type="text" style="color: #815854" th:value="${userdetail.nickname}" readonly/>
+                    <input type="hidden" name="user" th:value="${userdetail.id}"/>
+                </div>
+            </div>
+            <input type="hidden" name="posttype" th:value="${'work'}"/>
+            <input type="hidden" name="status" th:value="${'ing...'}"/>
+            <div class="form-group">
+                <label style="color: #815854">내용</label>
+                <div class="col-sm-12">
+                    <textarea class="form-control" style="height: 150px;" name="content"
+                              placeholder="내용을 입력해 주세요." required></textarea>
+                </div>
+            </div>
+            <div th:if="${not #lists.isEmpty(petdetail)}">
+                <label style="color: #815854">반려견 리스트</label>
+                <table class="table table-sm" style="text-align: center" >
+                    <thead style="background-color: #815854; color: #fff;">
+                    <tr>
+                        <th>이름</th>
+                        <th>성격</th>
+                        <th>견종</th>
+                        <th>성별</th>
+                        <th>중성화</th>
+                        <th>예방접종</th>
+                        <th>생일</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="pet : ${petdetail}">
+                        <td th:text="${pet.name}"></td>
+                        <td th:text="${pet.personality}"></td>
+                        <td th:text="${pet.kind}"></td>
+                        <td th:if="${pet.sex == 'F'}">여아</td>
+                        <td th:if="${pet.sex == 'M'}">남아</td>
+                        <td th:if="${pet.neutering == 'Y'}">완료</td>
+                        <td th:if="${pet.neutering == 'N'}">미완료</td>
+                        <td th:if="${pet.vaccination == 'Y'}">완료</td>
+                        <td th:if="${pet.vaccination == 'N'}">미접종</td>
+                        <td th:text="${pet.birth}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="btn_wrap text-center">
+                <button type="submit" class="btn-cus btn-cus--reverse" style="display: inline;">작성하기</button>
+                <a th:href="@{/posts/work/list}">
+                    <button type="button" class="btn-cus" style="display: inline;">취소</button></a>
+            </div>
+        </form>
+    </div>
 </div>
+
 </body>
 </html>

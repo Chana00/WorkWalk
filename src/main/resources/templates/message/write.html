@@ -57,7 +57,7 @@
         <form class=" form-horizontal" method="post" th:action="@{/message/write}">
 
             <div class="form-group">
-                <label>받는 사람</label>
+                <label style="color: #815854">받는 사람</label>
                 <div class="col-sm-12">
                     <input type="text" th:value="${receiveuser.user.nickname}" readonly/>
                     <input type="hidden" name="receive" th:value="${receiveuser.user.id}">
@@ -65,17 +65,17 @@
             </div>
             <input type="hidden" name="send" th:value="${senduser.id}"/>
             <div class="form-group">
-                <label>내용</label>
+                <label style="color: #815854">내용</label>
                 <div class="col-sm-12">
                     <textarea class="form-control" style="height: 200px;" name="content"
-                              placeholder="내용을 입력해 주세요."></textarea>
+                              placeholder="내용을 입력해 주세요." required></textarea>
                 </div>
             </div>
 
             <div class="btn_wrap text-center">
-                <a th:href="@{'/message/write/'+ ${receiveuser.id}}">
-                    <button class="btn-cus" style="display: inline;">취소</button></a>
                 <button type="submit" class="btn-cus btn-cus--reverse" style="display: inline;">쪽지보내기</button>
+                <a th:href="@{'/message/write/'+ ${receiveuser.id}}">
+                    <button type="button" class="btn-cus" style="display: inline;">취소</button></a>
             </div>
         </form>
     </div>

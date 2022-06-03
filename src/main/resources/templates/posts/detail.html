@@ -97,8 +97,10 @@
 
                             <td th:if="${pet.sex == 'F'}">여아</td>
                             <td th:if="${pet.sex == 'M'}">남아</td>
-                            <td th:text="${pet.neutering}"></td>
-                            <td th:text="${pet.vaccination}"></td>
+                            <td th:if="${pet.neutering == 'Y'}">완료</td>
+                            <td th:if="${pet.neutering == 'N'}">미완료</td>
+                            <td th:if="${pet.vaccination == 'Y'}">완료</td>
+                            <td th:if="${pet.vaccination == 'N'}">미접종</td>
                             <td th:text="${pet.birth}"></td>
                         </tr>
                         </tbody>
@@ -114,8 +116,10 @@
         <div th:if="${postdetail.user.id == userdetail.id}" style="display: inline">
             <a th:href="@{'/posts/'+ ${postdetail.posttype} + '/edit/' + ${postdetail.id}}">
                 <button class="btn-cus" style="display: inline;">수정</button></a>
-            <button class="btn-cus" style="display: inline;">삭제</button></a>
+            <form th:action="@{'/posts/' + ${postdetail.posttype} + '/' + ${postdetail.id}}" th:method="delete" style="display: inline">
+            <button class="btn-cus" style="display: inline;">삭제</button></form>
         </div>
+        <div th:if="${postdetail.user.id != userdetail.id}" style="display: inline">
         <form th:action="@{/posts/reservation}" method="post"  th:object="${reservation}" style="float: right; margin-left: 5px;">
             <input type="hidden" name="other_id" th:value="${postdetail.user.id}">
             <input type="hidden" name="other_nickname" th:value="${postdetail.user.getNickname()}">
@@ -125,7 +129,7 @@
                 예약하기</button>
         </form>
         <a th:href="@{'/message/write/' + ${postdetail.id}}">
-            <button class="btn-cus btn-cus--reverse" style="display: inline;">쪽지보내기</button></a>
+            <button class="btn-cus btn-cus--reverse" style="display: inline;">쪽지</button></a></div>
     </div>
 
 </div>
