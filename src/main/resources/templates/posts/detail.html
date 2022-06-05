@@ -120,7 +120,7 @@
             <button class="btn-cus" style="display: inline;">삭제</button></form>
         </div>
         <div th:if="${postdetail.user.id != userdetail.id}" style="display: inline">
-        <form th:action="@{/posts/reservation}" method="post"  th:object="${reservation}" style="float: right; margin-left: 5px;">
+        <form th:action="@{/posts/reservation}" method="post"  th:object="${reservation}" style="float: right; margin-left: 5px;" >
             <input type="hidden" name="other_id" th:value="${postdetail.user.id}">
             <input type="hidden" name="other_nickname" th:value="${postdetail.user.getNickname()}">
             <input type="hidden" name="my_id" th:value="${userdetail.id}">

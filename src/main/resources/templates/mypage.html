@@ -69,8 +69,10 @@
         <div class="container">
             <div class="card" style="float: left; width: 45%; margin-left: 30px;">
 
-                <img class="card-img-top" th:if="${user.imgUrl == null}" src="/img/default_user.png" alt="Card image" style="width:100%">
-                <img class="card-img-top" th:if="${user.imgUrl != null}" th:src="'/img/userProfile/' +  ${user.getImgUrl()}" alt="프로필사진" style="width:100%; height: 350px">
+                <img class="card-img-top" th:if="${user.imgUrl == null}" src="/img/default_user.png" alt="Card image"
+                     style="width:100%">
+                <img class="card-img-top" th:if="${user.imgUrl != null}"
+                     th:src="'/img/userProfile/' +  ${user.getImgUrl()}" alt="프로필사진" style="width:100%; height: 350px">
                 <div class="card-body">
                     <h4 class="card-title"><span style="color: #4286f4">[[${user.nickname}]]</span> 님</h4>
                     <div>
@@ -138,26 +140,29 @@
     </div>
 
 
-
     <!-- 예약 내역 -->
     <div class="reservation">
         <p style="color: #815854">예약 내역</p>
         <table class="table" style="text-align: center">
             <thead class="thead thead-dark">
-            <tr >
+            <tr>
                 <th>상대방 닉네임</th>
                 <th>예약 일자</th>
                 <th>완료 여부</th>
             </tr>
             </thead>
             <tbody>
-                <tr th:each="reser : ${reseList}">
-                    <td th:text="${reser.getOther_nickname()}"></td>
-                    <td th:text="${reser.getCreatedAt()}"></td>
-                    <td style="background-color: orange">[[${reser.getState()}]]
-                        <!--<button class="resEndBtn btn-cus btn-cus--reverse">완료</button> -->
-                    </td>
-                </tr>
+            <tr th:each="reser : ${reseList}">
+                <td th:text="${reser.getOther_nickname()}"></td>
+                <td th:text="${reser.getCreatedAt()}"></td>
+                <td style="background-color: #FFF4EC;">[[${reser.getState()}]]
+                    <form style="float: right;" th:action="'/mypage/walking-complete/' + ${reser.getId()}" method="POST">
+                        <button type="submit" class="resEndBtn btn-cus btn-cus--reverse" th:if="${reser.getState().equals('산책대기')}">
+                            산책완료
+                        </button>
+                    </form>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -270,7 +275,6 @@
         </form>
     </div>
 </div>
-
 
 </body>
 </html>
