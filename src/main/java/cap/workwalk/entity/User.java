@@ -10,7 +10,6 @@ import java.util.List;
 @Table(name="users")
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class User
 {
@@ -81,6 +80,12 @@ public class User
 
     @OneToMany(mappedBy ="user", fetch =FetchType.LAZY)
     private List<Post> posts = new ArrayList<Post>();
+
+    @OneToMany(mappedBy ="send", fetch =FetchType.LAZY)
+    private List<Chat> chats = new ArrayList<Chat>();
+
+    @OneToMany(mappedBy ="receive", fetch =FetchType.LAZY)
+    private List<Chat> chat = new ArrayList<Chat>();
 
     //유저인지 관리자인지 설정 user-role 양방향 many-many 관계
     @ManyToMany(cascade=CascadeType.MERGE)

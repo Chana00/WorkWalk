@@ -3,9 +3,11 @@ package cap.workwalk.service;
 import cap.workwalk.adapter.UserDetailsAdapter;
 import cap.workwalk.dto.UserInfoDto;
 import cap.workwalk.entity.Pet;
+import cap.workwalk.entity.Reservation;
 import cap.workwalk.entity.Role;
 import cap.workwalk.entity.User;
 import cap.workwalk.repository.PetRepository;
+import cap.workwalk.repository.ReservationRepository;
 import cap.workwalk.repository.RoleRepository;
 import cap.workwalk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,9 @@ public class CustomUserService implements UserDetailsService {
 
     @Autowired
     private PetRepository petRepository;
+
+    @Autowired
+    private ReservationRepository reservationRepository;
 
     private final BCryptPasswordEncoder passwordEncoder;
 
@@ -97,6 +102,14 @@ public class CustomUserService implements UserDetailsService {
             //System.out.println(user.getImgUrl() + "입니다");
         }
 
+    }
+
+    public void reservationWalkingChange(Principal principal, Integer reserId){
+        Reservation reser = reservationRepository.findById(reserId)
+                .orElseThrow(() -> new UsernameNotFoundException("Reservation ID not found"));
+
+        reser.setState("산책완료");
+        reservationRepository.save(reser);
     }
 
 

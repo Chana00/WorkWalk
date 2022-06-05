@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/postList.css">
+    <link rel="stylesheet" href="/css/pagination.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic:wght@400;700&display=swap"
+          rel="stylesheet">
+    <title>WorkWalk</title>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFF4EC;">
+    <a class="navbar-brand" th:href="@{/}" style="font-family: 'Do Hyeon', sans-serif;  color: #815854;">
+        <img src="/img/WolkWalk-logo.png" width="30" height="30" alt="">
+        WorkWalk</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="nav navbar-nav  mr-auto navbar-right ">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/search/puppy}">워커찾기</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/message/list}">쪽지목록</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/mypage}">마이페이지</a>
+            </li>
+            <li class="nav-item">
+                <div sec:authorize="isAuthenticated()">
+                    <a class="nav-link text-danger" th:href="@{/users/logout}">로그아웃</a>
+                </div>
+                <div sec:authorize="isAnonymous()">
+                    <a class="nav-link text-info" th:href="@{/users/login}">로그인</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+
+    <div class="row">
+        <div class="col">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" style="color: #815854; background-color: #fff;"
+                       th:href="@{/message/list}">받은 쪽지함</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" style="color: #fff; background-color: #815854;"
+                       th:href="@{/message/sendList}">보낸 쪽지함</a>
+                </li>
+            </ul>
+            <div class="tab-pane fade show active" id="send">
+                    <table class="table table-hover">
+                        <thread>
+                            <th>닉네임</th>
+                            <th>내용</th>
+                        </thread>
+                        <tr th:each="list : ${sendlist}">
+                            <td th:text="${list.receive.nickname}"></td>
+                            <td><a th:href="@{'/message/detail/'+ ${list.id}}">
+                                <span th:text="${list.content}"></span></a></td>
+                        </tr>
+                    </table>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" th:classappend="${1 == sendlist.pageable.pageNumber + 1} ? 'disabled' : '' ">
+                                <a class="page-link" th:href="@{/message/sendList/(page=${sendlist.pageable.pageNumber - 1})}">Previous</a>
+                            </li>
+                            <li class="page-item" th:classappend="${i == sendlist.pageable.pageNumber + 1} ? 'disabled' : '' " th:each="i : ${#numbers.sequence(startPage, endPage)}">
+                                <a class="page-link" th:href="@{/message/sendList/(page=${i - 1})}" th:text="${i}">1</a>
+                            </li>
+                            <li class="page-item" th:classappend="${sendlist.totalPages == sendlist.pageable.pageNumber + 1} ? 'disabled' : '' ">
+                                <a class="page-link" th:href="@{/message/sendList/(page=${sendlist.pageable.pageNumber + 1})}">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -12,6 +12,7 @@
           integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/postList.css">
+    <link rel="stylesheet" href="/css/pagination.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic:wght@400;700&display=swap"
@@ -32,10 +33,10 @@
     <div class="collapse navbar-collapse " id="navbarSupportedContent">
         <ul class="nav navbar-nav  mr-auto navbar-right ">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/search/walker}">워커찾기</a>
+                <a class="nav-link" th:href="@{/search/puppy}">워커찾기</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">채팅목록</a>
+                <a class="nav-link" th:href="@{/message/list}">쪽지목록</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/mypage}">마이페이지</a>
@@ -68,9 +69,23 @@
             <td><a th:href="@{'/posts/'+ ${list.posttype} + '/'+ ${list.id}}">
                 <span th:text="${list.content}"></span></a></td>
             <td th:text="${list.status}"></td>
-            <td th:text="${list.user.license}"></td>
+            <td th:if="${list.user.license == 'N'}">미보유</td>
+            <td th:if="${list.user.license == 'Y'}">보유</td>
         </tr>
     </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${1 == walklist.pageable.pageNumber + 1} ? 'disabled' : '' ">
+                <a class="page-link" th:href="@{/posts/walk/list/(page=${walklist.pageable.pageNumber - 1})}">Previous</a>
+            </li>
+            <li class="page-item" th:classappend="${i == walklist.pageable.pageNumber + 1} ? 'disabled' : '' " th:each="i : ${#numbers.sequence(startPage2, endPage2)}">
+                <a class="page-link" th:href="@{/posts/walk/list/(page=${i - 1})}" th:text="${i}">1</a>
+            </li>
+            <li class="page-item" th:classappend="${walklist.totalPages == walklist.pageable.pageNumber + 1} ? 'disabled' : '' ">
+                <a class="page-link" th:href="@{/posts/walk/list/(page=${walklist.pageable.pageNumber + 1})}">Next</a>
+            </li>
+        </ul>
+    </nav>
 </div>
 </body>
 </html>

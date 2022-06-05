@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic:wght@400;700&display=swap"
+          rel="stylesheet">
+    <title>WorkWalk</title>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFF4EC;">
+    <a class="navbar-brand" th:href="@{/}" style="font-family: 'Do Hyeon', sans-serif;  color: #815854;">
+        <img src="/img/WolkWalk-logo.png" width="30" height="30" alt="">
+        WorkWalk</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="nav navbar-nav  mr-auto navbar-right ">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/search/puppy}">워커찾기</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/message/list}">쪽지목록</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/mypage}">마이페이지</a>
+            </li>
+            <li class="nav-item">
+                <div sec:authorize="isAuthenticated()">
+                    <a class="nav-link text-danger" th:href="@{/users/logout}">로그아웃</a>
+                </div>
+                <div sec:authorize="isAnonymous()">
+                    <a class="nav-link text-info" th:href="@{/users/login}">로그인</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container col-lg-6 " >
+
+    <div class="card" style="padding: 20px; border-radius: 15px; margin: 20px auto;">
+        <form class=" form-horizontal" method="post" th:action="@{/message/write}">
+
+            <div class="form-group">
+                <label style="color: #815854">받는 사람</label>
+                <div class="col-sm-12">
+                    <input type="text" th:value="${receiveuser.user.nickname}" readonly/>
+                    <input type="hidden" name="receive" th:value="${receiveuser.user.id}">
+                </div>
+            </div>
+            <input type="hidden" name="send" th:value="${senduser.id}"/>
+            <div class="form-group">
+                <label style="color: #815854">내용</label>
+                <div class="col-sm-12">
+                    <textarea class="form-control" style="height: 200px;" name="content"
+                              placeholder="내용을 입력해 주세요." required></textarea>
+                </div>
+            </div>
+
+            <div class="btn_wrap text-center">
+                <button type="submit" class="btn-cus btn-cus--reverse" style="display: inline;">쪽지보내기</button>
+                <a th:href="@{'/message/write/'+ ${receiveuser.id}}">
+                    <button type="button" class="btn-cus" style="display: inline;">취소</button></a>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

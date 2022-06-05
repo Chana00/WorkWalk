@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
@@ -62,6 +59,12 @@ public class MyPageController {
             customUserService.profileImgSave(uploadImg, principal);
         }
 
+        return "redirect:/mypage";
+    }
+
+    @PostMapping("/mypage/walking-complete/{id}")
+    public String mypageWalkingComplete(Principal principal, @PathVariable Integer id){
+        customUserService.reservationWalkingChange(principal, id);
         return "redirect:/mypage";
     }
 
