@@ -72,7 +72,7 @@
             <p class="desc">우리 동네를 기준으로 매칭해요!<br> 워커님의 동네는? <br>
                 <span>[[${userAddrDong}]]</span>
             </p>
-            <form>
+            <form th:action="@{/search/filter/puppy}" method="POST">
                 <div>
                     <label class="text-info">반려견 성별</label><br>
                     <div class="form-check form-check-inline">
@@ -118,12 +118,12 @@
                 <div>
                     <label class="text-info">중성화 여부</label><br>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type='radio' value='N' id="neuteringCheck01" name="neutering"/>
-                        <label class="form-check-label" for="neuteringCheck01" checked> 중성화 전 </label>
+                        <input class="form-check-input" type='radio' value='N' id="neuteringCheck01" name="neutering" />
+                        <label class="form-check-label" for="neuteringCheck01"> 중성화 전 </label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type='radio' value='Y'
-                               id="neuteringCheck02" name="neutering"/>
+                               id="neuteringCheck02" name="neutering" checked/>
                         <label class="form-check-label" for="neuteringCheck02"> 중성화 완료 </label>
                     </div>
                 </div>
@@ -184,7 +184,7 @@
 
                 </div>
 
-                <button type="button" class="btn btn-outline-success btn-lg btn-block" data-toggle="modal" data-target="#petList">검색</button>
+                <button type="submit" class="btn btn-outline-success btn-lg btn-block" >검색</button>
             </form>
 
             <div>
@@ -211,7 +211,7 @@
             </div>
             <div class="modal-body">
                 <div th:each="puppy : ${sameAddressPetList}">
-                    <div class="modal-puppy">
+                    <div class="modal-puppy" th:if=".form-puppy">
                         <div class="modal-puppy-img">
                             <img class="card-img-top" src="/img/default_pet.png" style="height: 100%; width: 100%">
                         </div>
@@ -237,7 +237,7 @@
     </div>
 </div>
 
-<!-- script -->
+<!-- script - 카카오맵 -->
 <script th:inline="javascript">
     var userAddr = [[${userAddr}]];
     var userAddrDong = [[${userAddrDong}]];
@@ -294,21 +294,11 @@
                 content: content,
                 yAnchor: 1
             });
-            // 인포윈도우로 장소에 대한 설명을 표시합니다
-            /*
-            var infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="width:230px;text-align:center;padding:6px 0; margin: 3px; font-family: \'Nanum Gothic\', sans-serif; ">' +
-                    '우리 동네를 기준으로 매칭해요!<br> 회원님의 동네는? <br>'
-                    + '<span style="font-weight: bold; font-size: 18px;">' + userAddrDong + '</span>'
-                    + '</div>'
-            });
-            infowindow.open(map, marker);
-*/
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+
             map.setCenter(coords);
         }
     });
+
 </script>
 </body>
-
 </html>
