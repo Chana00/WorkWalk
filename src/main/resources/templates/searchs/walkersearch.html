@@ -72,7 +72,7 @@
             <p class="desc">우리 동네를 기준으로 매칭해요!<br> 워커님의 동네는? <br>
                 <span>[[${userAddrDong}]]</span>
             </p>
-            <form>
+            <form th:action="@{/search/filter/walker}" method="POST">
                 <div>
                     <label class="text-info">워커 성별</label><br>
                     <div class="form-check form-check-inline">
@@ -103,29 +103,29 @@
                 <div>
                     <label class="text-info">자격증 여부</label><br>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type='radio' value='N' id="neuteringCheck01" name="neutering"/>
-                        <label class="form-check-label" for="neuteringCheck01" checked> 자격증 없음 </label>
+                        <input class="form-check-input" type='radio' name="license" value='N' id="licenseCheck01" />
+                        <label class="form-check-label" for="licenseCheck01" checked> 자격증 없음 </label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type='radio' value='Y'
-                               id="neuteringCheck02" name="neutering"/>
-                        <label class="form-check-label" for="neuteringCheck02"> 자격증 있음 </label>
+                        <input class="form-check-input" type='radio'name="license" value='Y'
+                               id="licenseCheck02" checked/>
+                        <label class="form-check-label" for="licenseCheck02" > 자격증 있음 </label>
                     </div>
                 </div>
 
                 <div class="col-mb-6">
                     <label class="text-info">산책 경험 여부</label><br>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type='radio' name="vaccination" value='N'
-                               id="vaccinationCheck01"
+                        <input class="form-check-input" type='radio' name="exp" value='N'
+                               id="expCheck01"
                                checked/>
-                        <label class="form-check-label" for="vaccinationCheck01"> 경험 없음 </label>
+                        <label class="form-check-label" for="expCheck01"> 경험 없음 </label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type='radio' name="vaccination" value='Y'
-                               id="vaccinationCheck02"
+                        <input class="form-check-input" type='radio' name="exp" value='Y'
+                               id="expCheck02"
                                checked/>
-                        <label class="form-check-label" for="vaccinationCheck02"> 경험 있음 </label>
+                        <label class="form-check-label" for="expCheck02"> 경험 있음 </label>
                     </div>
                 </div>
 
@@ -169,7 +169,7 @@
 
                 </div>
 
-                <button type="button" class="btn btn-outline-success btn-lg btn-block" data-toggle="modal" data-target="#petList">검색</button>
+                <button type="submit" class="btn btn-outline-success btn-lg btn-block" data-toggle="modal" data-target="#petList">검색</button>
             </form>
 
             <div>
