@@ -46,6 +46,7 @@ public class MessageController {
         return "/message/list";
 
 
+
     }
 
 
