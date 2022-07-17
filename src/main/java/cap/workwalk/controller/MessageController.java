@@ -44,9 +44,6 @@ public class MessageController {
         model.addAttribute("receivelist", chatService.findByReceive(userDetailsAdapter.getUser(),pageable));
 
         return "/message/list";
-
-
-
     }
 
 
